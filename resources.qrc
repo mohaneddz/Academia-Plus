@@ -1,0 +1,49 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.qss</file>
+        <file>icon/high acad fancy.png</file>
+        <file>icon/low acad fancy.png</file>
+        <file>icon/teacheruser.png</file>
+        <file>icon/studentuser.png</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>icon/acad fancy trans_upscayl_4x_realesrgan-x4plus-anime.png</file>
+        <file>icon/kv3qWHo2QcqKOqRClNzJYQ - Copy.png</file>
+        <file>icon/high acad fancy.png</file>
+        <file>icon/icon.ico</file>
+        <file>icon/Courses/analysis.png</file>
+        <file>icon/Courses/English..png</file>
+        <file>icon/Courses/linear_algebra.png</file>
+        <file>icon/Courses/linux.png</file>
+        <file>icon/Courses/oop.png</file>
+        <file>icon/Courses/statistics.png</file>
+        <file>icon/low Icon.png</file>
+    </qresource>
+    <qresource prefix="/courses">
+        <file>icon/Courses/analysis.png</file>
+        <file>icon/Courses/English..png</file>
+        <file>icon/Courses/linear_algebra.png</file>
+        <file>icon/Courses/linux.png</file>
+        <file>icon/Courses/oop.png</file>
+        <file>icon/Courses/statistics.png</file>
+    </qresource>
+    <qresource prefix="/buttons">
+        <file>icon/courses-on.png</file>
+        <file>icon/courses-off.png</file>
+        <file>icon/students-on.png</file>
+        <file>icon/students-off.png</file>
+        <file>icon/teachers-on.png</file>
+        <file>icon/teachers-off.png</file>
+        <file>icon/about-on.png</file>
+        <file>icon/about-off.png</file>
+        <file>icon/user-on.png</file>
+        <file>icon/user-off.png</file>
+        <file>icon/home-off.png</file>
+        <file>icon/home-on.png</file>
+        <file>icon/search-13-48.ico</file>
+        <file>icon/menu-on.png</file>
+        <file>icon/menu-off.png</file>
+        <file>icon/exams-on.png</file>
+        <file>icon/exams-off.png</file>
+    </qresource>
+</RCC>

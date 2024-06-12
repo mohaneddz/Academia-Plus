@@ -1,0 +1,194 @@
+/* Style for mainwindow */
+QMessageBox,
+QDialog,
+#login,
+#MainWindow,
+#scrollArea,
+#scrollExamResults,
+#add_students,
+#add_teachers,
+#Add_Courses,
+#Add_Exams,
+#edit_courses,
+#edit_teachers,
+#edit_students,
+#edit_exams,
+#view_courses,
+#view_groups,
+#view_onegroup {
+  background-color: #324c82;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+}
+
+/* Style for buttons */
+QPushButton {
+  background-color: #111e3b;
+  color: white;
+  padding: 14px 20px;
+  font-weight: bold;
+  margin: 8px 0;
+  border: none;
+  width: 20%;
+  opacity: 0.9;
+  border: 2px dashed rgb(18, 22, 56);
+}
+
+/* Style for labels */
+QLineEdit {
+  background-color: #6688d3;
+  /* inline shadow */
+  border: 2px solid #172646;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  /* italic */
+  font-style: italic;
+  font-weight: bold;
+}
+
+QLabel {
+  /* bold white big*/
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+QComboBox {
+  background-color: #6688d3;
+  border: 2px solid #172646;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  font-style: italic;
+  font-weight: bold;
+
+}
+
+/* Style for frames */
+#frame,
+QListView #oneresult,
+QListView #onecourseframe,
+QListView #label,
+scrollResults #View_result_single,
+#examFrame,
+#teachersFrame,
+#studentsFrame,
+#coursesFrame {
+  border: 5px solid #172646;
+  border-radius: 10px;
+  background-color: #355483;
+}
+
+/* Style for user info */
+#userInfo {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+/* Style for scroll areas */
+/* include everything in list_courses to be colored this way */
+QScrollArea,
+QListView,
+#List_courses,
+#scrollExamResults,
+#List_courses *,
+#List_teachers *,
+#List_teachers,
+#scrollExams,
+#scrollCourses,
+#scrollTeachers,
+#scrollStudents,
+#scrollSearch,
+#scrollResults * ,
+#List_groups,
+#scrollResults,
+#List_groups * {
+  border-radius: 10px;
+  border: 2px dashed #172646;
+  background-color: #2f4577;
+  padding: 10px;
+}
+
+QListView,
+#List_courses *,
+#List_teachers *,
+#List_groups *,
+#scrollResults *,
+#List_groups.layout *,
+#List_courses.layout *,
+#List_courses QLayout,
+#List_groups QLayout,
+#scrollExamResults,
+#scrollExams,
+#scrollSearch,
+#scrollCourses,
+#scrollTeachers,
+#scrollStudents {
+  background-color: #2f4577;
+  border: none;
+}
+
+
+/* Style for header widget */
+#widget {
+  background-color: #1b2845;
+}
+
+/* Style for menu  */
+#icon_only_widget {
+  background-color: #17223a;
+  width: 50px;
+}
+
+#full_menu_widget {
+  background-color: #17223a;
+  width: 300px;
+
+}
+
+
+/* Style for search  */
+#search_btn {
+  border: none;
+}
+
+#search_input {
+  background-color: #b3c8dd;
+  border: none;
+  padding: 5px 10px;
+}
+
+#user_btn,
+#change_btn,
+#search_btn {
+  background-color: #1b2845;
+  border: none;
+
+}
+
+QCheckBox,
+QRadioButton {
+  color: white;
+}
+
+#home_btn_1,
+#home_btn_2,
+#courses_btn_1,
+#courses_btn_2,
+#teachers_btn_1,
+#teachers_btn_2,
+#students_btn_1,
+#students_btn_2,
+#exams_btn_1,
+#exams_btn_2,
+#About,
+#About_btn1 {
+  background-color: #17223a;
+  color: white;
+  margin: 8px 0;
+  /* padding top and bot but not right left */
+  padding: 14px 5px;
+  border: none;
+}
