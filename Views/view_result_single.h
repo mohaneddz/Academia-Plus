@@ -2,6 +2,7 @@
 #define VIEW_RESULT_SINGLE_H
 
 #include <QWidget>
+#include <QDialog>>
 #include "Classes.h"
 
 namespace Ui
@@ -9,13 +10,16 @@ namespace Ui
     class View_result_single;
 }
 
-class View_result_single : public QWidget
+class View_result_single : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit View_result_single(QWidget *parent = nullptr, Students *s = nullptr, int index = 0, string n = "");
+    explicit View_result_single(QDialog *parent, string n = "", double g = 0);
     ~View_result_single();
+    string getName();
+    double getResult();
+    Exams *exam;
 
 private:
     Ui::View_result_single *ui;

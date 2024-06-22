@@ -8,6 +8,7 @@
 #include "Frames/teacherframe.h"
 #include "Frames/studentframe.h"
 #include "Frames/examframe.h"
+#include "about.h"
 
 #include "Classes.cpp"
 #include <cstring>
@@ -75,41 +76,47 @@ MainWindow::MainWindow(QWidget *parent)
 }
 MainWindow::~MainWindow()
 {
+    // save data
+    Courses::save(ENSIA.getCourses());
+    Teachers::save(ENSIA.getTeachers());
+    Students::save(ENSIA.getStudents());
+    Exams::save(ENSIA.getExams());
+
     delete ui;
 }
 
 // Course Image Assignment ( Depricatede  )
-QString MainWindow::assignImage(const QString &courseName)
-{
-    if (courseName == "OOP")
-    {
-        return ":/courses/icon/Courses/oop.png";
-    }
-    else if (courseName == "statistics")
-    {
-        return ":/courses/icon/Courses/statistics.png";
-    }
-    else if (courseName == "linear algebra")
-    {
-        return ":/courses/icon/Courses/linear_algebra.png";
-    }
-    else if (courseName == "analysis")
-    {
-        return ":/courses/icon/Courses/analysis.png";
-    }
-    else if (courseName == "linux")
-    {
-        return ":/courses/icon/Courses/linux.png";
-    }
-    else if (courseName == "English")
-    {
-        return ":/courses/icon/Courses/English..png";
-    }
-    else
-    {
-        return ""; // Default image or empty string
-    }
-}
+// QString MainWindow::assignImage(const QString &courseName)
+// {
+//     if (courseName == "OOP")
+//     {
+//         return ":/courses/icon/Courses/oop.png";
+//     }
+//     else if (courseName == "statistics")
+//     {
+//         return ":/courses/icon/Courses/statistics.png";
+//     }
+//     else if (courseName == "linear algebra")
+//     {
+//         return ":/courses/icon/Courses/linear_algebra.png";
+//     }
+//     else if (courseName == "analysis")
+//     {
+//         return ":/courses/icon/Courses/analysis.png";
+//     }
+//     else if (courseName == "linux")
+//     {
+//         return ":/courses/icon/Courses/linux.png";
+//     }
+//     else if (courseName == "English")
+//     {
+//         return ":/courses/icon/Courses/English..png";
+//     }
+//     else
+//     {
+//         return ""; // Default image or empty string
+//     }
+// }
 
 // Buttons Navigation
 void MainWindow::on_home_btn_1_toggled()
@@ -192,7 +199,6 @@ void MainWindow::loadCourses()
         }
     }
 
-    cout << "Loading courses..." << endl;
     for (auto course : ENSIA.getCourses())
     {
         // cout << "Course found" << endl;
@@ -258,16 +264,13 @@ void MainWindow::loadTeachers()
             delete item->widget();
             // Delete the layout item
             delete item;
-            cout << "Item deleted" << endl;
         }
     }
 
-    cout << "Loading teachers..." << endl;
     for (auto teacher : ENSIA.getTeachers())
     {
         if (teacher == nullptr)
         {
-            cout << "Teacher is null" << endl;
             break;
         }
 
@@ -336,12 +339,10 @@ void MainWindow::loadExams()
         }
     }
 
-    cout << "Loading Exams..." << endl;
     for (auto exam : ENSIA.getExams())
     {
         if (exam == nullptr)
         {
-            cout << "Exam is null" << endl;
             break;
         }
 
@@ -381,18 +382,17 @@ void MainWindow::loadExams()
         examFrame->findChild<QLineEdit *>("L_Groups")->setText(QString::fromStdString(*groups));
         examFrame->findChild<QLineEdit *>("L_date")->setText(QString::number(exam->getTimeStart().getDay()) + "/" + QString::number(exam->getTimeStart().getMonth()) + "/" + QString::number(exam->getTimeStart().getYear()) + " " + QString::number(exam->getTimeStart().getHour()) + ":" + minutesStart + " To " + QString::number(exam->getTimeEnd().getHour()) + ":" + minutesEnd);
         examFrame->findChild<QLineEdit *>("L_Teachers")->setText(QString::fromStdString(exam->getResponsible()));
+
         for (auto teacher : ENSIA.getTeachers())
         {
             if (teacher == nullptr)
             {
-                cout << "Teachers is null" << endl;
                 break;
             }
             for (auto teachercourse : teacher->getCourses())
             {
                 if (teachercourse == nullptr)
                 {
-                    cout << "Teacher course is null" << endl;
                     break;
                 }
 
@@ -402,10 +402,6 @@ void MainWindow::loadExams()
                     *teachers += " " + teacher->getName();
                     break;
                 }
-                else
-                {
-                    cout << "Teacher course not found" << endl;
-                }
             }
         }
 
@@ -414,7 +410,6 @@ void MainWindow::loadExams()
 
         // Add the widget to the scroll area
         ui->scrollExams->layout()->addWidget(widget);
-        cout << "Exams loaded successfully" << endl;
 
         delete[] groups;
         delete teachers;
@@ -439,13 +434,10 @@ void MainWindow::loadStudents()
         }
     }
 
-    cout << "Loading students..." << endl;
     for (auto student : ENSIA.getStudents())
     {
-        cout << "students found" << endl;
         if (student == nullptr)
         {
-            cout << "students is null" << endl;
             break;
         }
 
@@ -485,14 +477,12 @@ void MainWindow::loadStudents()
         student_Frame->findChild<QLineEdit *>("L_Group")->setText(QString::number(student->getGroup()));
         student_Frame->findChild<QLineEdit *>("L_Year")->setText(QString::number(student->getYear()));
         student_Frame->findChild<QLineEdit *>("L_Section")->setText(QString::number(*section));
-
         delete section;
 
         widget->layout()->addWidget(student_Frame);
 
         // Add the widget to the scroll area
         ui->scrollStudents->layout()->addWidget(widget);
-        cout << "Students loaded successfully" << endl;
     }
 };
 
@@ -529,13 +519,15 @@ void MainWindow::on_Add_Students_btn_clicked()
 }
 
 // Searching for Frames
-
 void MainWindow::search(string Nsearch = "")
 {
-    // searches for that name in all of the data : ENSIA.getStudents() , ENSIA.getTeachers() , ENSIA.getCourses() , ENSIA.getExams()
-    // if found , it will display the data of that person in the search page
+    // Convert Nsearch to a QString for case-insensitive comparison
+    QString searchString = QString::fromStdString(Nsearch);
 
-    // Clear the layout of scrollStudents_2
+    // searches for that name in all of the data : ENSIA.getStudents() , ENSIA.getTeachers() , ENSIA.getCourses() , ENSIA.getExams()
+    // if found, it will display the data of that person in the search page
+
+    // Clear the layout of scrollSearch
     QLayout *layout = ui->scrollSearch->layout();
 
     // Check if the layout is not null, to remove all items inside
@@ -553,34 +545,32 @@ void MainWindow::search(string Nsearch = "")
     }
 
     // Searching For Students :
-
     for (auto student : ENSIA.getStudents())
     {
-        cout << "students found" << endl;
         if (student == nullptr)
         {
             break;
         }
 
-        if (student->getName() != Nsearch)
+        if (!QString::fromStdString(student->getName()).contains(searchString, Qt::CaseInsensitive))
         {
             continue;
         }
+
         // Create a new QWidget
         QWidget *widget = new QWidget();
 
         // Set the layout for the new QWidget
         widget->setLayout(new QVBoxLayout());
 
-        // Create a new teacherFrame
+        // Create a new studentFrame
         studentframe *student_Frame = new studentframe();
-        connect(student_Frame, &studentframe::trigger, this, [this, Nsearch]()
-                { MainWindow::search(Nsearch); });
+        connect(student_Frame, &studentframe::trigger, this, [this, searchString]()
+                { MainWindow::search(searchString.toStdString()); });
 
         int *section = new int;
 
         // 3 Sections : 1-4 / 5-8 / 9-12
-
         if (student->getGroup() < 5 && student->getGroup() > 0)
         {
             *section = 1;
@@ -612,7 +602,6 @@ void MainWindow::search(string Nsearch = "")
     }
 
     // Searching For Exams :
-
     for (auto exam : ENSIA.getExams())
     {
         if (exam == nullptr)
@@ -620,7 +609,7 @@ void MainWindow::search(string Nsearch = "")
             break;
         }
 
-        if (exam->getModule()->getName() != Nsearch)
+        if (!QString::fromStdString(exam->getModule()->getName()).contains(searchString, Qt::CaseInsensitive))
         {
             continue;
         }
@@ -630,7 +619,6 @@ void MainWindow::search(string Nsearch = "")
 
         for (int i = 0; i < 12; i++)
         {
-
             if (exam->getModule() == nullptr)
             {
                 break;
@@ -648,10 +636,10 @@ void MainWindow::search(string Nsearch = "")
         // Set the layout for the new QWidget
         widget->setLayout(new QVBoxLayout());
 
-        // Create a new examframe
+        // Create a new ExamFrame
         ExamFrame *examFrame = new ExamFrame();
-        connect(examFrame, &ExamFrame::trigger, this, [this, Nsearch]()
-                { MainWindow::search(Nsearch); });
+        connect(examFrame, &ExamFrame::trigger, this, [this, searchString]()
+                { MainWindow::search(searchString.toStdString()); });
 
         examFrame->findChild<QLineEdit *>("L_name")->setText(QString::fromStdString(exam->getModule()->getName()));
         examFrame->findChild<QLineEdit *>("L_ID")->setText(QString::number(exam->getid()));
@@ -661,52 +649,41 @@ void MainWindow::search(string Nsearch = "")
         {
             if (teacher == nullptr)
             {
-                cout << "Teachers is null" << endl;
                 break;
             }
             for (auto teachercourse : teacher->getCourses())
             {
                 if (teachercourse == nullptr)
                 {
-                    cout << "Teacher course is null" << endl;
                     break;
                 }
 
                 if (teachercourse == exam->getModule())
                 {
-
                     *teachers += " " + teacher->getName();
                     break;
-                }
-                else
-                {
-                    cout << "Teacher course not found" << endl;
                 }
             }
         }
 
-        // Add the CourseFrame to the layout of widget
         widget->layout()->addWidget(examFrame);
 
         // Add the widget to the scroll area
         ui->scrollSearch->layout()->addWidget(widget);
-        cout << "Exams loaded successfully" << endl;
 
         delete[] groups;
         delete teachers;
     }
 
     // Searching For Teachers :
-
     for (auto teacher : ENSIA.getTeachers())
     {
         if (teacher == nullptr)
         {
-            cout << "Teacher is null" << endl;
             break;
         }
 
-        if (teacher->getName() != Nsearch)
+        if (!QString::fromStdString(teacher->getName()).contains(searchString, Qt::CaseInsensitive))
         {
             continue;
         }
@@ -719,8 +696,8 @@ void MainWindow::search(string Nsearch = "")
 
         // Create a new teacherFrame
         teacherframe *teacher_Frame = new teacherframe();
-        connect(teacher_Frame, &teacherframe::trigger, this, [this, Nsearch]()
-                { MainWindow::search(Nsearch); });
+        connect(teacher_Frame, &teacherframe::trigger, this, [this, searchString]()
+                { MainWindow::search(searchString.toStdString()); });
 
         teacher_Frame->findChild<QLineEdit *>("L_Name")->setText(QString::fromStdString(teacher->getName()));
         teacher_Frame->findChild<QLineEdit *>("L_ID")->setText(QString::number(teacher->getId()));
@@ -734,17 +711,14 @@ void MainWindow::search(string Nsearch = "")
     }
 
     // Searching For Courses :
-
     for (auto course : ENSIA.getCourses())
     {
-        // cout << "Course found" << endl;
         if (course == nullptr)
         {
-            // cout << "Course is null" << endl;
             break;
         }
 
-        if (course->getName() != Nsearch)
+        if (!QString::fromStdString(course->getName()).contains(searchString, Qt::CaseInsensitive))
         {
             continue;
         }
@@ -766,10 +740,10 @@ void MainWindow::search(string Nsearch = "")
         // Set the layout for the new QWidget
         widget->setLayout(new QVBoxLayout());
 
-        // Create a new courseframe
+        // Create a new CourseFrame
         CourseFrame *courseFrame = new CourseFrame();
-        connect(courseFrame, &CourseFrame::trigger, this, [this, Nsearch]()
-                { MainWindow::search(Nsearch); });
+        connect(courseFrame, &CourseFrame::trigger, this, [this, searchString]()
+                { MainWindow::search(searchString.toStdString()); });
 
         courseFrame->findChild<QLineEdit *>("L_name")->setText(QString::fromStdString(course->getName()));
         courseFrame->findChild<QLineEdit *>("L_ID")->setText(QString::number(course->getId()));
@@ -789,13 +763,11 @@ void MainWindow::search(string Nsearch = "")
 
                 if (teachercourse == course)
                 {
-
                     if (!teachers->empty())
                     {
                         *teachers += " , ";
                     }
                     *teachers += teacher->getName();
-                    cout << "Teacher name: " << teacher->getName() << endl;
                     break;
                 }
             }
@@ -808,22 +780,6 @@ void MainWindow::search(string Nsearch = "")
             {
                 teacherLineEdit->setText(QString::fromStdString(*teachers));
             }
-            else
-            {
-                cout << "No QLineEdit named 'L_Teachers' found in courseFrame" << endl;
-            }
-        }
-
-        else
-        {
-            if (courseFrame == nullptr)
-            {
-                cout << "courseFrame is nullptr" << endl;
-            }
-            if (teachers == nullptr)
-            {
-                cout << "teachers is nullptr" << endl;
-            }
         }
 
         // Add the CourseFrame to the layout of widget
@@ -831,12 +787,27 @@ void MainWindow::search(string Nsearch = "")
 
         // Add the widget to the scroll area
         ui->scrollSearch->layout()->addWidget(widget);
-        // cout << "Course loaded successfully" << endl;
     }
 }
+
 void MainWindow::on_search_btn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(5);
     cout << "Search Started";
     search(ui->search_input->text().toStdString());
 }
+
+void MainWindow::on_About_clicked()
+{
+    About about;
+    about.setModal(true);
+    about.exec();
+}
+
+void MainWindow::on_About_btn1_clicked()
+{
+    About about;
+    about.setModal(true);
+    about.exec();
+}
+

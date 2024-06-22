@@ -1,26 +1,4 @@
-/* Style for mainwindow */
-QMessageBox,
-QDialog,
-#login,
-#MainWindow,
-#scrollArea,
-#scrollExamResults,
-#add_students,
-#add_teachers,
-#Add_Courses,
-#Add_Exams,
-#edit_courses,
-#edit_teachers,
-#edit_students,
-#edit_exams,
-#view_courses,
-#view_groups,
-#view_onegroup {
-  background-color: #324c82;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-}
+
 
 /* Style for buttons */
 QPushButton {
@@ -66,20 +44,6 @@ QComboBox {
 
 }
 
-/* Style for frames */
-#frame,
-QListView #oneresult,
-QListView #onecourseframe,
-QListView #label,
-scrollResults #View_result_single,
-#examFrame,
-#teachersFrame,
-#studentsFrame,
-#coursesFrame {
-  border: 5px solid #172646;
-  border-radius: 10px;
-  background-color: #355483;
-}
 
 /* Style for user info */
 #userInfo {
@@ -88,12 +52,14 @@ scrollResults #View_result_single,
 }
 
 /* Style for scroll areas */
-/* include everything in list_courses to be colored this way */
 QScrollArea,
 QListView,
 #List_courses,
-#scrollExamResults,
+#List_exam_results,
 #List_courses *,
+#List_exam_results *,
+#List_events ,
+#scroll_Exam_Results ,
 #List_teachers *,
 #List_teachers,
 #scrollExams,
@@ -112,15 +78,19 @@ QListView,
 }
 
 QListView,
+QListView::viewport,
 #List_courses *,
+#List_events *,
+#List_exam_results,
+#List_exam_results *,
 #List_teachers *,
 #List_groups *,
 #scrollResults *,
 #List_groups.layout *,
 #List_courses.layout *,
 #List_courses QLayout,
+#List_exam_results QLayout,
 #List_groups QLayout,
-#scrollExamResults,
 #scrollExams,
 #scrollSearch,
 #scrollCourses,
@@ -129,7 +99,6 @@ QListView,
   background-color: #2f4577;
   border: none;
 }
-
 
 /* Style for header widget */
 #widget {
@@ -191,4 +160,56 @@ QRadioButton {
   /* padding top and bot but not right left */
   padding: 14px 5px;
   border: none;
+}
+
+QPushButton:hover {
+    background-color: #0A1B3D;
+}
+
+/* Style for mainwindow */
+QMessageBox,
+QDialog,
+#login,
+#MainWindow,
+#scrollArea,
+#add_students,
+#add_teachers,
+#Add_Courses,
+#Add_Exams,
+#edit_courses,
+#edit_teachers,
+#edit_students,
+#edit_exams,
+#view_courses,
+#view_groups,
+#performance_event,
+#view_onegroup {
+  background-color: #324c82;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+}
+
+/* Style for frames */
+#frame,
+QListView #oneresult,
+QListView #onecourseframe,
+QListView #label,
+scrollResults #View_result_single,
+#examFrame,
+#teachersFrame,
+#studentsFrame,
+#coursesFrame {
+  border: 5px solid #172646;
+  border-radius: 10px;
+  background-color: #355483;
+}
+/* QDateTime and QLineEdit inside the #List_events * must be of light blue background color */
+
+#List_events QLineEdit {
+  background-color: #6688d3;
+}
+
+#List_events QDateTimeEdit {
+  background-color: #6688d3;
 }

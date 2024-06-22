@@ -3,24 +3,20 @@
 #include "view_result_single.h"
 #include "QScrollArea"
 
-view_student_results::view_student_results(QWidget *parent, Students *e)
+view_student_results::view_student_results(QWidget *parent, Students *s)
     : QDialog(parent), ui(new Ui::view_student_results)
 {
     ui->setupUi(this);
 
     // Create a scroll area
     QScrollArea *scrollArea = new QScrollArea(this);
-
-    // Create a widget to hold the list of results
     QWidget *list = new QWidget();
-
-    // Create a vertical layout for the results
     QVBoxLayout *layout = new QVBoxLayout();
 
-    for (int i = 0; i < e->getResults().size(); i++)
+    for (int i = 0; i < s->getResults().size(); i++)
     {
         // add a new single result frame
-        View_result_single *singleResult = new View_result_single(this, e, i, e->getResults()[i]->getModule()->getName());
+        View_result_single *singleResult = new View_result_single(this, s->getResults()[i]->getModule()->getName(), s->getResultsValue()[i]);
         layout->addWidget(singleResult);
     }
 
@@ -32,7 +28,7 @@ view_student_results::view_student_results(QWidget *parent, Students *e)
     scrollArea->setWidget(list);
 
     // Add the scroll area to the layout where you want the scrollable list to appear
-    ui->scrollResults->setViewport(scrollArea); 
+    ui->scrollResults->setViewport(scrollArea);
 }
 
 view_student_results::~view_student_results()

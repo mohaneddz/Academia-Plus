@@ -4,6 +4,8 @@
 #include "Editing/edit_teachers.h"
 #include "Views/view_group.h"
 #include "Views/view_courses.h"
+#include "Views/view_performance.h"
+#include "Views/view_schedule.h"
 
 teacherframe::teacherframe(QWidget *parent)
     : QWidget(parent), ui(new Ui::teacherframe)
@@ -30,7 +32,6 @@ void teacherframe::on_btn_unassignon_clicked()
 
 void teacherframe::on_btnGroups_clicked()
 {
-    cout << "Groups button clicked\n";
     int index = ui->L_ID->text().toInt();
     Teachers *t = ENSIA.getTeachers()[index];
     view_group *view = new view_group(nullptr, t);
@@ -39,7 +40,6 @@ void teacherframe::on_btnGroups_clicked()
 
 void teacherframe::on_btnCourses_clicked()
 {
-    cout << "Courses button clicked\n";
     int index = ui->L_ID->text().toInt();
     Teachers *t = ENSIA.getTeachers()[index];
     view_courses *view = new view_courses(nullptr, t);
@@ -57,14 +57,18 @@ void teacherframe::on_btnEdit_clicked()
 
 void teacherframe::on_btnPerformance_clicked()
 {
-    cout << "Performance button clicked\n";
     int index = ui->L_ID->text().toInt();
+    Teachers *t = ENSIA.getTeachers()[index];
+    view_performance *view = new view_performance(nullptr, t);
+    view->show();
+
     // Perform actions related to teacher performance
 }
 
 void teacherframe::on_btnViewSchedule_clicked()
 {
-    cout << "View Schedule button clicked\n";
     int index = ui->L_ID->text().toInt();
-    // Perform actions to view teacher's schedule
+    Teachers *t = ENSIA.getTeachers()[index];
+    view_schedule *view = new view_schedule(nullptr, t);
+    view->show();
 }

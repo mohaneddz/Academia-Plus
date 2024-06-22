@@ -5,6 +5,7 @@
         <file>icon/low acad fancy.png</file>
         <file>icon/teacheruser.png</file>
         <file>icon/studentuser.png</file>
+        <file>icon/information.png</file>
     </qresource>
     <qresource prefix="/icon">
         <file>icon/acad fancy trans_upscayl_4x_realesrgan-x4plus-anime.png</file>

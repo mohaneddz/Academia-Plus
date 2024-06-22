@@ -331,6 +331,26 @@ void edit_Teachers::on_EditTeacherbtn_clicked()
                                                       : ui->lab_12->isChecked()    ? 3
                                                                                    : 0);
 
+
+    // reset the schedule
+    for (int i = 0; i < 7; i++)
+    {
+        teacher->setSchedule(i, 0, "");
+        teacher->setSchedule(i, 1, "");
+    }
+    // sets the schedule according to the courses assigned
+    for (int i = 0; i < teacher->getCourses().size(); i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            if (teacher->getCourses()[i]->getSchedule()[j][0] != "")
+            {
+                teacher->setSchedule(j, 0, teacher->getCourses()[i]->getSchedule()[j][0]);
+                teacher->setSchedule(j, 1, teacher->getCourses()[i]->getSchedule()[j][1]);
+            }
+        }
+    }
+
     teacher->getBirthDate().setDay(ui->L_Day->text().toInt());
     teacher->getBirthDate().setMonth(ui->L_Month->text().toInt());
     teacher->getBirthDate().setYear(ui->L_Year->text().toInt());

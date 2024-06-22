@@ -16,6 +16,7 @@ public:
     explicit view_courses_frame(QWidget *parent = nullptr, Members *ts = nullptr, int index = 0);
     ~view_courses_frame();
     Teachers *t;
+    Students *s;
 
 private:
     Ui::view_courses_frame *ui;

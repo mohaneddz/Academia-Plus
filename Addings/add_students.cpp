@@ -8,8 +8,6 @@ add_students::add_students(QWidget *parent)
     : QDialog(parent), ui(new Ui::add_students)
 {
     ui->setupUi(this);
-    connect(ui->Auto, SIGNAL(clicked()), this, SLOT(on_Auto_clicked()));
-    connect(ui->Add, SIGNAL(clicked()), this, SLOT(on_Add_Clicked()));
 }
 
 add_students::~add_students()
@@ -17,7 +15,7 @@ add_students::~add_students()
     delete ui;
 }
 
-void add_students::on_Add_Clicked()
+void add_students::on_Add_clicked()
 {
 
     // verify the given values
@@ -105,7 +103,31 @@ void add_students::on_Add_Clicked()
     Students *student = new Students(*name, *password, *email, *phone, *address, *courses, *group, *studyYear, *section, *day, *month, *year);
 
     // push him into the ENSIA students group according ot his group
-    ENSIA.pushstudent(student, student->getGroup() + 1);
+    ENSIA.pushstudent(student, student->getGroup());
+
+    // Push the exams to the student
+    for (int i = 0; i < ENSIA.getExams().size(); i++)
+    {
+        if (ENSIA.getExams()[i]->getGroups()[*group- 1])
+        {
+            student->pushExam(ENSIA.getExams()[i]);
+            student->pushExamResult(0);
+        }
+    }
+
+    // set the schedule for the student, according the courses timetable of his group
+    for (int i = 0; i < student->getCourses().size(); i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            // if not empty, set the schedule
+            if (student->getCourses()[i]->getSchedule()[j][0] != "")
+            {
+                student->setSchedule(j, 0, student->getCourses()[i]->getSchedule()[j][0]);
+                student->setSchedule(j, 1, student->getCourses()[i]->getSchedule()[j][1]);
+            }
+        }
+    }
 
     // delete the pointers
     delete name;
@@ -121,12 +143,58 @@ void add_students::on_Add_Clicked()
     delete section;
 
     this->close();
+
+    if (!student->fixschedule())
+    {
+        QMessageBox::critical(this, "Error", "Student added but there is a conflict in the schedule among his courses", QMessageBox::Ok);
+        return;
+    }
 }
 
 void add_students::on_Auto_clicked()
 {
-    ui->Line_name->setText("name");
-    ui->Line_email->setText("email");
+    // chose a random name :
+
+    string names[] = {
+        "Manaa Mohaned", "Elmouataz Bellah Ferhat", "Mustapha Otsmane", "Aya Mouffok",
+        "Yasmine Meriche", "Malak Meliani", "Hala Boutaya", "Fatima Zohra Doua Bourzak",
+        "Rayane Toumi", "Louai Nasrellah Soufi", "Besmala Douadi", "Asmaa Mobarek",
+        "Sirine Atoum", "Badreddine Zerraf", "Manel Ferrat", "Medjoudj Taha",
+        "Wassim Taleb", "Mohamed Amine Chaouchi", "Nour Tliba", "Dihia Hachemi",
+        "Selsabila Guettaf Temam", "Douaa Zaibak", "Mehdi Bouzoul", "Yasser Benahmed",
+        "Ala Bensabra", "Abderrahmane Baatchia", "Meriem Ouadfel", "Benali Islam",
+        "Ines Sekfali", "Wassim Elorabi", "Amina Gadiri", "Douniazed Blaada",
+        "Safia Bokreta", "Melynda Hadj Ali", "Mohamed Elamine Menadi", "Djamel Bougheddou",
+        "Meftah Zineb", "Sadjeda Benhamed", "Zineb Berrekia", "Kaouther Imene Ghedfa",
+        "Yousra Kassous", "Mohamed Amin Sekkat", "Sarah Djoubani", "Nadia Benbouabdellah",
+        "Hocine Tamdrari", "Firdaws Bassaid", "Lyna Selsabila Remadi", "Zohra Abdeli",
+        "Nouha Bazoula", "Mustapha Belkebir", "Takoua Hidoussi", "Hamou Djellab",
+        "Maria Hadj Messaoud", "Hattabi Hadil", "Soundous Chemam", "Besmala Djebari",
+        "Rania Litim", "Takieddine Harbadji", "Basmala Randa Benmaiche", "Rahil Ghanem",
+        "Imane Haddad", "Fatima Zahra Bourouba", "Aya Benmansour", "Maria Elaidi",
+        "Samah Ikram Farez", "Yasmine Kaced", "Sarra Arab", "Sarah Mahmoudi",
+        "Nesrine Abdelhak", "Nassim Ali Bouazzouni", "Loukmane Daoudi", "Farida Boubekeur",
+        "Rachel Bakhouche", "Amira Boudaoud", "Mohamed Idris Hamadi Hamaidi", "Oumaima Maatar",
+        "Yazid Slimani", "Sara Belhadj", "Anaïs Daoud", "Oumaima Daif",
+        "Douaa Djaid", "Mohammed Imad Eddine Maachou", "Zineb Zetili", "Thouria Tahari",
+        "Chaker Yousfi", "Nour El Yakine Guendouz", "Maha Bazouzi", "Adlene Kermache",
+        "Marouane Oulad Ali", "Yasmina Medjri", "Alia Tliba", "Abdelaali Habbeche",
+        "Ayoub Saci", "Abdelbari Tarek Sibachir", "Mosabe Khalil Belhout", "Kaoua Raounak Hadil",
+        "Badis Belkessam", "Amel Feddag", "Younes Ahmane", "Aymen Zahzouh"};
+
+    string chosen = names[rand() % 100];
+    ui->Line_name->setText(QString::fromStdString(chosen));
+
+    // replace space with comma
+    for (auto s : chosen)
+    {
+        if (s == ' ')
+        {
+            chosen.replace(chosen.find(' '), 1, ".");
+        }
+    }
+
+    ui->Line_email->setText(QString::fromStdString(chosen + "@ensia.edu.dz"));
     ui->Line_phone->setText("phone");
     ui->Line_address->setText("address");
     ui->Line_password->setText("password");

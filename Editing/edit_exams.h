@@ -17,6 +17,7 @@ public:
     explicit edit_exams(QWidget *parent = nullptr, int id = 0);
     ~edit_exams();
     QVBoxLayout layout;
+    int examId;
 
 private slots:
     void on_btnCancelExam_clicked();

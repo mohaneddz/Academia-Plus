@@ -103,40 +103,40 @@ void add_teachers::on_Add_clicked()
     Teachers *teacher = new Teachers(*name, *password, *email, *phone, *address, courses, groups, *day, *month, *year, type);
 
     teacher->setType(0, ui->course_1->isChecked() ? 1 : ui->tuto_1->isChecked() ? 2
-                                                      : ui->lab_1->isChecked()    ? 3
+                                                    : ui->lab_1->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(1, ui->course_2->isChecked() ? 1 : ui->tuto_2->isChecked() ? 2
-                                                      : ui->lab_2->isChecked()    ? 3
+                                                    : ui->lab_2->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(2, ui->course_3->isChecked() ? 1 : ui->tuto_3->isChecked() ? 2
-                                                      : ui->lab_3->isChecked()    ? 3
+                                                    : ui->lab_3->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(3, ui->course_4->isChecked() ? 1 : ui->tuto_4->isChecked() ? 2
-                                                      : ui->lab_4->isChecked()    ? 3
+                                                    : ui->lab_4->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(4, ui->course_5->isChecked() ? 1 : ui->tuto_5->isChecked() ? 2
-                                                      : ui->lab_5->isChecked()    ? 3
+                                                    : ui->lab_5->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(5, ui->course_6->isChecked() ? 1 : ui->tuto_6->isChecked() ? 2
-                                                      : ui->lab_6->isChecked()    ? 3
+                                                    : ui->lab_6->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(6, ui->course_7->isChecked() ? 1 : ui->tuto_7->isChecked() ? 2
-                                                      : ui->lab_7->isChecked()    ? 3
+                                                    : ui->lab_7->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(7, ui->course_8->isChecked() ? 1 : ui->tuto_8->isChecked() ? 2
-                                                      : ui->lab_8->isChecked()    ? 3
+                                                    : ui->lab_8->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(8, ui->course_9->isChecked() ? 1 : ui->tuto_9->isChecked() ? 2
-                                                      : ui->lab_9->isChecked()    ? 3
+                                                    : ui->lab_9->isChecked()    ? 3
                                                                                 : 0);
     teacher->setType(9, ui->course_10->isChecked() ? 1 : ui->tuto_10->isChecked() ? 2
-                                                       : ui->lab_10->isChecked()    ? 3
+                                                     : ui->lab_10->isChecked()    ? 3
                                                                                   : 0);
     teacher->setType(10, ui->course_11->isChecked() ? 1 : ui->tuto_11->isChecked() ? 2
-                                                        : ui->lab_11->isChecked()    ? 3
+                                                      : ui->lab_11->isChecked()    ? 3
                                                                                    : 0);
     teacher->setType(11, ui->course_12->isChecked() ? 1 : ui->tuto_12->isChecked() ? 2
-                                                        : ui->lab_12->isChecked()    ? 3
+                                                      : ui->lab_12->isChecked()    ? 3
                                                                                    : 0);
 
     // for every checked checkbox in the list of courses, add the corresponding position to be true in assignedcourses bool vector
@@ -158,6 +158,19 @@ void add_teachers::on_Add_clicked()
         }
     }
 
+    // sets the schedule according to the courses assigned
+    for (int i = 0; i < teacher->getCourses().size(); i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            if (teacher->getCourses()[i]->getSchedule()[j][0] != "")
+            {
+                teacher->setSchedule(j, 0, teacher->getCourses()[i]->getSchedule()[j][0]);
+                teacher->setSchedule(j, 1, teacher->getCourses()[i]->getSchedule()[j][1]);
+            }
+        }
+    }
+
     delete year;
     delete month;
     delete day;
@@ -168,15 +181,49 @@ void add_teachers::on_Add_clicked()
     delete password;
     delete[] groups;
 
-
     this->close();
+    
+    // add the teacher to the ENSIA teachers list
+    if (!teacher->fixschedule())
+    {
+        QMessageBox::critical(this, "Error", "Teacher added but there is a conflict in the schedule among his courses", QMessageBox::Ok);
+        return;
+    }
 }
 
 void add_teachers::on_Auto_clicked()
 {
-    // set default values for all qlines
-    ui->Line_name->setText("Teacher");
-    ui->Line_email->setText("email");
+    // random name for the teacher ( for testing purposes )
+    string names[] = {
+        "Mustapha Abderrahim", "Fouzia Anane", "Nawel Berrouche", "Abdelmalik Bourek",
+        "Sami Achour", "Leila Allou", "Amina Atmani", "Sid Ahmed Benabadji",
+        "Imed Bouchrika", "Kamel Brahimi", "Aicha Dali", "Seif Eddine Djennadi",
+        "Mohammed Hammadou", "Houssem Harzli", "Wahid Hamza Mohamed",
+        "Ahmed Kara", "Abdelhakim Keddad", "Khadidja Kendouci", "Hicham Khezzar",
+        "Chabane Kholladi", "Amir Koubaa", "Ahmed Mahmoudi", "Meriem Amel Meziane",
+        "Mohamed Ouamer", "Kamel Eddine Sahnoun", "Farah Touati", "Lila Zebboudj",
+        "Abderrahim Zeghlache", "Rokia Aribi", "Mohamed Akram Zidi",
+        "Soumaya Belkhir", "Noureddine Berkoune", "Karim Bessaih",
+        "Ouarda Boudjemai", "Mohamed Djenouri", "Tarek Kebir", "Ouslimani", "Iness Laggoune",
+        "Youcef Maouche", "Mohand Said Ouali", "Riad Rahal", "Hayet Siad",
+        "Yesin Tamine", "Zouheyr Tamer", "Okba Toumi"};
+
+    string chosen = names[rand() % 45];
+
+    ui->Line_name->setText(QString::fromStdString(chosen));
+
+    // replace space with comma
+    for (auto s : chosen)
+    {
+        if (s == ' ')
+        {
+            chosen.replace(chosen.find(' '), 1, ".");
+        }
+    }
+
+    ui->Line_email->setText(QString::fromStdString(chosen + "@ensia.edu.dz"));
+
+    // set default values for all the fields
     ui->Line_phone->setText("phone");
     ui->Line_address->setText("address");
     ui->Line_password->setText("password");

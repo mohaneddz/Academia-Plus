@@ -72,13 +72,47 @@ void edit_Students::on_btnEditStudent_clicked()
         student->setYear(5);
 
     // apply the group
-    ENSIA.popstudent(student, student->getGroup() + 1); 
+    ENSIA.popstudent(student, student->getGroup() + 1);
     student->setGroup(ui->Combo_Student->currentIndex() + 1);
+
+    // reset the courses 
+    student->setCourses({});
+
+    // set the courses for the student, according the courses of his group
+    for (int i = 0; i < ENSIA.getCourses().size(); i++)
+    {
+        if (ENSIA.getCourses()[i]->getGroups()[student->getGroup()])
+        {
+            student->addCourse(ENSIA.getCourses()[i]);
+        }
+    }    
+
 
     // apply the birth date
     student->setBirthDate(ui->L_Year_3->text().toInt(), ui->L_Month_3->text().toInt(), ui->L_Day_3->text().toInt());
 
     ENSIA.pushstudent(student, student->getGroup() + 1);
+
+    // reset the schedule
+    for (int i = 0; i < 7; i++)
+    {
+        student->setSchedule(i, 0, "");
+        student->setSchedule(i, 1, "");
+    }
+
+    // set the schedule for the student, according the courses timetable of his group
+    for (int i = 0; i < student->getCourses().size(); i++)
+    {
+        for (int j = 0; j < 7; j++)
+        {
+            // if not empty, set the schedule
+            if (student->getCourses()[i]->getSchedule()[j][0] != "")
+            {
+                student->setSchedule(j, 0, student->getCourses()[i]->getSchedule()[j][0]);
+                student->setSchedule(j, 1, student->getCourses()[i]->getSchedule()[j][1]);
+            }
+        }
+    }
 
     emit trigger();
     this->close();

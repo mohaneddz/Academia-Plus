@@ -55,12 +55,15 @@ public slots:
 
 private slots:
 
-
     void on_search_btn_clicked();
+
+    void on_About_clicked();
+
+    void on_About_btn1_clicked();
 
 private:
     // Helper Functions
-    QString assignImage(const QString &courseName);
+    // QString assignImage(const QString &courseName);
 
     // UI Elements
     QLineEdit *courseNameInput;

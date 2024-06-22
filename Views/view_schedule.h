@@ -13,8 +13,13 @@ class view_schedule : public QDialog
     Q_OBJECT
 
 public:
-    explicit view_schedule(QWidget *parent = nullptr, Members *e = nullptr);
+    explicit view_schedule(QWidget *parent = nullptr, Members *e = nullptr, Courses *c = nullptr);
     ~view_schedule();
+    Students *s;
+    Teachers *t;
+
+private slots:
+    void on_ok_clicked();
 
 private:
     Ui::view_schedule *ui;

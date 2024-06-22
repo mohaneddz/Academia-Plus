@@ -34,8 +34,14 @@ int main(int argc, char *argv[])
 
     label->setGraphicsEffect(effect);
 
+    ENSIA.setCourses(Courses::load());
+    ENSIA.setExams(Exams::load());
+    ENSIA.setTeachers(Teachers::load());
+    ENSIA.setStudents(Students::load());
+
     login h;
-    h.exec();
+    if (h.exec() == QDialog::Rejected)
+        return 0;
 
     string *Susername = new string(h.username);
     string *Spassword = new string(h.password);
@@ -73,7 +79,6 @@ int main(int argc, char *argv[])
         studentImage = studentImage.scaled(w.ui->userBig->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
         w.ui->userBig->setPixmap(studentImage);
     }
-
 
     w.ui->userInfo->setText(userInfoHtml);
     w.show();

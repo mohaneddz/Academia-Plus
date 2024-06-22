@@ -8,6 +8,12 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <cstring>
+
+// for the QDate class
+#include <QDateTime>
+#include <QTime>
+#include <map>
 
 using namespace std;
 
@@ -40,6 +46,8 @@ public:
 
     void setYear(int year);
     int getYear() const;
+
+    void setDate(int day, int month, int year);
 };
 
 class Time : public Date
@@ -58,6 +66,8 @@ public:
 
     void setMinute(int minute);
     int getMinute() const;
+
+    void setTime(int hour, int minute, int day, int month, int year);
 };
 
 // Courses ---------------------------------------------------------------------------------------------------
@@ -66,37 +76,37 @@ class Courses
 {
 private:
     string name;
-    string schedule[7];
+    string schedule[7][2];
     bool groups[12];
-    int id; // Unique identifier for each course
+    int id;
 
 public:
-    static int totalcourses; // Static member to keep track of the next id
+    static int totalcourses;
+
     // Getters and Setters :{name, schedule, groups} --------------------------------------------
-    // Name
     void setName(const string &name);
     string getName() const;
 
-    void setSchedule(const string schedule[7]);
-    string *getSchedule();
+    void setSchedule(const string schedule[7][2]);
+    string (*getSchedule())[2];
 
     int getId();
     void setId(const int newId);
+
     // Constructors and Destructor
     Courses();
-    Courses(const string &newName, string newSchedule[7], const bool newgroups[12]);
+    Courses(const string &newName, string newSchedule[7][2], const bool newgroups[12]);
     ~Courses();
-    // Other methods
 
+    // Other methods
     void setGroups(const bool newgroups[12]);
     bool *getGroups();
 
-    void printSchedule();
-
     // DATA :
-
-    // nlohmann::json saveData();
-    // void readData(const nlohmann::json &j);
+    // Save function to serialize Courses objects to a file
+    static void save(const vector<Courses *> &coursesList);
+    // Load function to deserialize Courses objects from a file
+    static vector<Courses *> load();
 };
 
 // Exams ---------------------------------------------------------------------------------------------------
@@ -105,7 +115,6 @@ class Exams
 {
 private:
     Courses *Module;
-    float Marks[7];
     Time start;
     Time end;
     bool groups[12];
@@ -121,19 +130,12 @@ public:
     void setModule(Courses *Module);
     Courses *getModule();
 
-    void setMarks(const float Marks[7]);
-    float *getMarks();
-
     void setGroups(const bool groups[12]);
     bool *getGroups();
 
     Time &getTimeStart();
     Time &getTimeEnd();
     void setDate(const Time &start, const Time &end);
-
-    void printMarks();
-    void printDate();
-    void printModule();
 
     void setId(int id);
     int getid();
@@ -144,29 +146,35 @@ public:
     string getResponsible();
     void setResponsible(const string &newResponsible);
 
-    // nlohmann::json saveData();
-    // void readData(const nlohmann::json &j);
+    // DATA Section :
+    static void save(const vector<Exams *> &examsList);
+    static vector<Exams *> load();
 };
 
 // Members ---------------------------------------------------------------------------------------------------
+// forward declarations
+class Students;
+class Teachers;
 
 class Members
 {
 protected:
-    string name;
     long int id;
+    string name;
     string password;
     string email;
     string phone;
     string address;
-    vector<Courses *> courses;
-    string schedule[7];
-    int static totalmembers;
-    Date BD;
     string Attendance[3];
+    string schedule[7][2];
+    Date BD;
+    vector<Courses *> courses;
+    int static totalmembers;
+    vector<string> performance;
+    vector<QDateTime> dates;
 
 public:
-    // Getters and Setters for name, id, password, email, phone, address, courses, and schedule
+    // Getters and Setters for  name, id, password, email, phone, address, courses, and schedule
     void setName(const string &name);
     string getName() const;
 
@@ -188,27 +196,32 @@ public:
     void setCourses(const vector<Courses *> &courses);
     vector<Courses *> getCourses() const;
 
-    void setSchedule(const string schedule[7]);
-    string *getSchedule();
-
     void setBirthDate(int day, int month, int year);
     Date &getBirthDate();
+
+    void setevent(const string &event, QDateTime &time, int index);
+    string getevent(int index);
+    QDateTime &geteventtime(int index);
+
+    vector<string> *getevents();
+    vector<QDateTime> *geteventstime();
+
+    string (*getSchedule())[2];
+    virtual bool fixschedule();
+    void setSchedule(int a, int b, string newSchedule);
+    string *getAttendance();
 
     // Constructors and Destructor
     Members();
     Members(const string &name, const string &password, const string &email, const string &phone, const string &address, const vector<Courses *> &courses, int day, int month, int year);
     virtual ~Members() = default;
 
-    // Methods
-    void login();
-    void logout();
-    void viewProfile();
-    void editProfile();
-    void changePassword();
-    void viewCourses();
-    void printSchedule();
-    void SortSchedule();
-    string *getAttendance();
+    // DATA :
+    // we will make freind functions to save and load data from files for both Students and Teachers
+    friend class Students;
+    friend class Teachers;
+    // friend void Teachers::save(const vector<Teachers *> &teachersList);
+    // friend vector<Teachers *> Teachers::load();
 };
 
 // Students ---------------------------------------------------------------------------------------------------
@@ -227,9 +240,6 @@ public:
     Students(string name, string password, string email, string phone, string address, vector<Courses *> course, int Group, int schoolYear, int section, int day, int month, int year);
     virtual ~Students();
     static int totalstudents;
-    void viewResults();
-    void viewSchedule();
-    void getAverage();
     int getGroup();
     void setGroup(const int newGroup);
     void setYear(const int newYear);
@@ -240,18 +250,27 @@ public:
     vector<double> getResultsValue();
     void setResult(int index, Exams *exam);
     void setResultvalue(int index, double value);
+    void setResultvalue(Exams *exam, double value = 10);
     void pushExam(Exams *exam);
     void pushExamResult(double value);
     void removeExam(Exams *exam);
+    void addCourse(Courses *course);
+    void removeCourse(Courses *course);
+    virtual bool fixschedule();
+    static void save(const vector<Students *> &studentsList);
+    static vector<Students *> load();
 };
 
 // Teachers ---------------------------------------------------------------------------------------------------
 
 class Teachers : public Members
 {
+private:
+    int type[12];
+    bool groups[12];
+
 public:
     static int totalteachers;
-    void modifyschedule(const string schedule[7]);
     Teachers();
     Teachers(string name, string password, string email, string phone, string address, vector<Courses *> course, bool groups[12], int day, int month, int year, int type[12]);
     ~Teachers();
@@ -261,10 +280,9 @@ public:
     void removeCourse(int index);
     int *getType();
     void setType(int group, int type);
-
-private:
-    int type[12];
-    bool groups[12];
+    bool fixschedule();
+    static void save(const vector<Teachers *> &teachersList);
+    static vector<Teachers *> load();
 };
 
 // School ---------------------------------------------------------------------------------------------------
@@ -311,11 +329,20 @@ public:
     void pushstudent(Students *s, int group);
     void popstudent(Students *s, int group);
 
+    void pushexam(Exams *e, int group);
+
     vector<Students *> getGroup(int index);
     vector<Courses *> getCourses();
     vector<Students *> getStudents();
     vector<Teachers *> getTeachers();
     vector<Exams *> getExams();
+
+    void setCourses(const vector<Courses *> &courses);
+    void setTeachers(const vector<Teachers *> &teachers);
+    void setStudents(const vector<Students *> &students);
+    void setExams(const vector<Exams *> &exams);
+
+    Students *getStudents(string name);
 };
 
 extern School ENSIA;

@@ -29,6 +29,8 @@ private slots:
     void on_btn_edit_clicked();
     void on_btn_teachers_clicked();
 
+    void on_btn_schedule_clicked();
+
 private:
     Ui::CourseFrame *ui;
 };

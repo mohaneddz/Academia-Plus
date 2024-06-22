@@ -5,6 +5,7 @@
 #include "Editing/edit_students.h"
 #include "Views/view_absences.h"
 #include "Views/view_student_results.h"
+#include "Views/view_schedule.h"
 
 studentframe::studentframe(QWidget *parent)
     : QWidget(parent), ui(new Ui::studentframe)
@@ -19,10 +20,7 @@ studentframe::~studentframe()
 
 void studentframe::on_btn_unassign_clicked()
 {
-    cout << "Delete button clicked\n";
     int index = ui->L_ID->text().toInt();
-
-    cout << "Index to be removed : " << index << endl;
 
     // Remove the Exam from the school
     ENSIA.removeStudent(index);
@@ -54,10 +52,18 @@ void studentframe::on_btn_performance_clicked()
     edit->exec();
 }
 
-void studentframe::on_btn_assign_clicked()
+void studentframe::on_btn_courses_clicked()
 {
     int index = ui->L_ID->text().toInt();
     auto edit = new view_courses(nullptr, ENSIA.getStudents()[index]);
+    edit->setModal(true);
+    edit->exec();
+}
+
+void studentframe::on_btn_schedule_clicked()
+{
+    int index = ui->L_ID->text().toInt();
+    auto edit = new view_schedule(nullptr, ENSIA.getStudents()[index]);
     edit->setModal(true);
     edit->exec();
 }

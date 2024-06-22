@@ -2,12 +2,12 @@
 #include "ui_edit_courses.h"
 #include "Classes.h"
 #include "ui_teacher_list_frame.h"
-#include "teacher_list_frame.h"
+#include "Views/teacher_list_frame.h"
 #include <QScrollArea>
 #include <QMessageBox>
 
 edit_courses::edit_courses(int courseId, QWidget *parent)
-    : QDialog(parent), ui(new Ui::edit_courses), courseId(courseId) 
+    : QDialog(parent), ui(new Ui::edit_courses), courseId(courseId)
 {
     ui->setupUi(this);
 
@@ -30,16 +30,20 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
     ui->g12->setChecked(course->getGroups()[11]);
 
     // set the schedule
-    ui->sunday_start->setText(QString::fromStdString(course->getSchedule()[0].substr(0, 5)));
-    ui->sunday_end->setText(QString::fromStdString(course->getSchedule()[0].substr(8, 5)));
-    ui->monday_start->setText(QString::fromStdString(course->getSchedule()[1].substr(0, 5)));
-    ui->monday_end->setText(QString::fromStdString(course->getSchedule()[1].substr(8, 5)));
-    ui->tuesday_start->setText(QString::fromStdString(course->getSchedule()[2].substr(0, 5)));
-    ui->tuesday_end->setText(QString::fromStdString(course->getSchedule()[2].substr(8, 5)));
-    ui->wednesday_start->setText(QString::fromStdString(course->getSchedule()[3].substr(0, 5)));
-    ui->wednesday_end->setText(QString::fromStdString(course->getSchedule()[3].substr(8, 5)));
-    ui->thursday_start->setText(QString::fromStdString(course->getSchedule()[4].substr(0, 5)));
-    ui->thursday_end->setText(QString::fromStdString(course->getSchedule()[4].substr(8, 5)));
+    ui->sunday_start->setText(QString::fromStdString(course->getSchedule()[0][0]));
+    ui->sunday_end->setText(QString::fromStdString(course->getSchedule()[0][1]));
+    ui->monday_start->setText(QString::fromStdString(course->getSchedule()[1][0]));
+    ui->monday_end->setText(QString::fromStdString(course->getSchedule()[1][1]));
+    ui->tuesday_start->setText(QString::fromStdString(course->getSchedule()[2][0]));
+    ui->tuesday_end->setText(QString::fromStdString(course->getSchedule()[2][1]));
+    ui->wednesday_start->setText(QString::fromStdString(course->getSchedule()[3][0]));
+    ui->wednesday_end->setText(QString::fromStdString(course->getSchedule()[3][1]));
+    ui->thursday_start->setText(QString::fromStdString(course->getSchedule()[4][0]));
+    ui->thursday_end->setText(QString::fromStdString(course->getSchedule()[4][1]));
+    ui->friday_start->setText(QString::fromStdString(course->getSchedule()[5][0]));
+    ui->friday_end->setText(QString::fromStdString(course->getSchedule()[5][1]));
+    ui->saturday_start->setText(QString::fromStdString(course->getSchedule()[6][0]));
+    ui->saturday_end->setText(QString::fromStdString(course->getSchedule()[6][1]));
 
     // set the teachers
     // Create a new scroll area
@@ -106,9 +110,15 @@ void edit_courses::on_btnEditCourse_clicked()
     Courses *course = ENSIA.getCourses()[courseId];
     course->setName(ui->Line_coursename->text().toStdString());
     course->setGroups(new bool[13]{ui->g1->isChecked(), ui->g2->isChecked(), ui->g3->isChecked(), ui->g4->isChecked(), ui->g5->isChecked(), ui->g6->isChecked(), ui->g7->isChecked(), ui->g8->isChecked(), ui->g9->isChecked(), ui->g10->isChecked(), ui->g11->isChecked(), ui->g12->isChecked()});
-    course->setSchedule(new string[7]{ui->sunday_start->text().toStdString() + " - " + ui->sunday_end->text().toStdString(), ui->monday_start->text().toStdString() + " - " + ui->monday_end->text().toStdString(), ui->tuesday_start->text().toStdString() + " - " + ui->tuesday_end->text().toStdString(), ui->wednesday_start->text().toStdString() + " - " + ui->wednesday_end->text().toStdString(), ui->thursday_start->text().toStdString() + " - " + ui->thursday_end->text().toStdString(), ui->friday_start->text().toStdString() + " - " + ui->friday_end->text().toStdString(), ui->saturday_start->text().toStdString() + " - " + ui->saturday_end->text().toStdString()});
+    course->setSchedule(new string[7][2]{
+        {ui->sunday_start->text().toStdString(), ui->sunday_end->text().toStdString()},
+        {ui->monday_start->text().toStdString(), ui->monday_end->text().toStdString()},
+        {ui->tuesday_start->text().toStdString(), ui->tuesday_end->text().toStdString()},
+        {ui->wednesday_start->text().toStdString(), ui->wednesday_end->text().toStdString()},
+        {ui->thursday_start->text().toStdString(), ui->thursday_end->text().toStdString()},
+        {ui->friday_start->text().toStdString(), ui->friday_end->text().toStdString()},
+        {ui->saturday_start->text().toStdString(), ui->saturday_end->text().toStdString()}});
 
-    cout << "num teachers: " << ENSIA.getTeachers().size() << endl;
     // get this courses index
 
     for (int i = 0; i < ENSIA.getTeachers().size(); i++)
@@ -117,6 +127,15 @@ void edit_courses::on_btnEditCourse_clicked()
         if (frames[i]->check())
         {
             ENSIA.getTeachers()[i]->addCourse(course);
+            
+            for (int j = 0; j < 7; j++)
+            {
+                if (ENSIA.getTeachers()[i]->getCourses()[0]->getSchedule()[j][0] != "")
+                {
+                    ENSIA.getTeachers()[i]->setSchedule(j, 0, ENSIA.getTeachers()[i]->getCourses()[0]->getSchedule()[j][0]);
+                    ENSIA.getTeachers()[i]->setSchedule(j, 1, ENSIA.getTeachers()[i]->getCourses()[0]->getSchedule()[j][1]);
+                }
+            }
         }
         else
         {

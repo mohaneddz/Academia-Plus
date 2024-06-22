@@ -15,6 +15,9 @@ public:
     explicit view_teachers(int id = 0, QWidget *parent = nullptr);
     ~view_teachers();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::view_teachers *ui;
     int courseid;

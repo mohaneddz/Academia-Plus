@@ -216,7 +216,7 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
          <property name="currentIndex">
-          <number>5</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="HomeMenu">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -296,8 +296,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1306</width>
-                <height>832</height>
+                <width>1342</width>
+                <height>854</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -344,8 +344,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1342</width>
-                <height>854</height>
+                <width>76</width>
+                <height>24</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -392,8 +392,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1306</width>
-                <height>832</height>
+                <width>76</width>
+                <height>22</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -436,8 +436,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1342</width>
-                <height>854</height>
+                <width>76</width>
+                <height>22</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_9"/>
@@ -1152,38 +1152,6 @@
     <hint type="destinationlabel">
      <x>39</x>
      <y>184</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>About</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>142</x>
-     <y>963</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>284</x>
-     <y>606</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>About_btn1</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>34</x>
-     <y>974</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>47</x>
-     <y>626</y>
     </hint>
    </hints>
   </connection>

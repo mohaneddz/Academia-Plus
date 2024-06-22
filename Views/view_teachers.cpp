@@ -7,7 +7,7 @@ view_teachers::view_teachers(int id, QWidget *parent)
 {
     ui->setupUi(this);
 
-    // // Find the teachers
+    // Find the teachers
     bool found1 = false, found2 = false, found3 = false;
     for (Teachers *teacher : ENSIA.getTeachers())
     {
@@ -16,25 +16,25 @@ view_teachers::view_teachers(int id, QWidget *parent)
         {
             if (course->getId() == id)
             {
-                // get his type : TD, TP, COURS
+                // get his type: TD, TP, COURS
                 for (int i = 0; i < 12; i++)
                 {
                     if (teacher->getType()[i] == 1 && !found1)
                     {
-                        // add the teacher's name to the list to the existing names
-                        ui->L_Course->setText(ui->L_Course->text() + QString::fromStdString(teacher->getName()) + " ");
+                        // add the teacher's name to the course list if not already added
+                        ui->L_Course->setText(ui->L_Course->text() + QString::fromStdString(teacher->getName()) + " . ");
                         found1 = true;
                     }
                     if (teacher->getType()[i] == 2 && !found2)
                     {
-                        // add the teacher's name to the list to the existing names
-                        ui->L_Tutorial->setText(ui->L_Course->text() + QString::fromStdString(teacher->getName()) + " ");
+                        // add the teacher's name to the tutorial list if not already added
+                        ui->L_Tutorial->setText(ui->L_Tutorial->text() + QString::fromStdString(teacher->getName()) + " . ");
                         found2 = true;
                     }
                     if (teacher->getType()[i] == 3 && !found3)
                     {
-                        // add the teacher's name to the list to the existing names
-                        ui->L_Lab->setText(ui->L_Course->text() + QString::fromStdString(teacher->getName()) + " ");
+                        // add the teacher's name to the lab list if not already added
+                        ui->L_Lab->setText(ui->L_Lab->text() + QString::fromStdString(teacher->getName()) + " . ");
                         found3 = true;
                     }
                 }
@@ -48,4 +48,9 @@ view_teachers::view_teachers(int id, QWidget *parent)
 view_teachers::~view_teachers()
 {
     delete ui;
+}
+
+void view_teachers::on_pushButton_clicked()
+{
+    this->close();
 }

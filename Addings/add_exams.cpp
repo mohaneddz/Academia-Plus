@@ -13,6 +13,7 @@ add_exams::add_exams(QWidget *parent)
     }
     for (Teachers *teacher : ENSIA.getTeachers())
     {
+        // if the teacher has this module in his courses
         ui->responsible->addItem(QString::fromStdString(teacher->getName()));
     }
 }
@@ -28,12 +29,45 @@ void add_exams::on_btnAddExam_clicked()
     // validate the input ( if all times are empty)
     if (ui->Combo_Module->currentText().isEmpty() || (ui->g1->isChecked() == false && ui->g2->isChecked() == false && ui->g3->isChecked() == false && ui->g4->isChecked() == false && ui->g5->isChecked() == false && ui->g6->isChecked() == false && ui->g7->isChecked() == false && ui->g8->isChecked() == false && ui->g9->isChecked() == false && ui->g10->isChecked() == false && ui->g11->isChecked() == false && ui->g12->isChecked() == false) || ui->L_Day->text().isEmpty() || ui->L_Month->text().isEmpty() || ui->L_Year->text().isEmpty() || ui->responsible->currentText().isEmpty())
     {
-        ui->Combo_Module->setStyleSheet("border: 1px solid red");
-        QMessageBox::critical(this, "Input error", "All fields must be filled out");
+        QMessageBox::critical(this, "Input error", "All fields must be filled out!");
         return;
     }
+    // check if the exam name is already taken
+    for (Exams *exam : ENSIA.getExams())
+    {
+        if (exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString())
+        {
+            QMessageBox::critical(this, "Input error", "This exam already exists!");
+            return;
+        }
+    }
+    // if the teacher does not have this module in his courses
+    // first get the teacher object
+    Teachers *teacher = nullptr;
+    for (Teachers *t : ENSIA.getTeachers())
+    {
+        if (t->getName() == ui->responsible->currentText().toStdString())
+        {
+            teacher = t;
+            break;
+        }
+    }
 
-    string *coursename = new string(ui->Combo_Module->currentText().toStdString());
+    bool courseFound = false; // Flag to indicate if the course is found
+    for (Courses *course : teacher->getCourses())
+    {
+        if (course->getName() == ui->Combo_Module->currentText().toStdString())
+        {
+            courseFound = true; // Course found, set the flag to true
+            break;
+        }
+    }
+
+    if (!courseFound) // Check if the course was not found after checking all courses
+    {
+        QMessageBox::critical(this, "Input error", "This teacher does not have this module in his courses!");
+        return;
+    }
 
     // iterate over the vector of courses, and add each course name to the module combo box as an optioon in the list
 
@@ -65,22 +99,20 @@ void add_exams::on_btnAddExam_clicked()
             // Iterate over each group
             for (int i = 0; i < 12; i++)
             {
-                if (exam->getGroups()[i] != i)
+                if (exam->getGroups()[i] != 1)
                 {
                     continue;
                 }
 
-                for (Students* student : ENSIA.getGroup(i))
+                for (Students *student : ENSIA.getGroup(i + 1))
                 {
                     student->pushExam(exam);
+                    student->pushExamResult(0);
                 }
             }
 
-            // Exams(Courses *Module, float Marks[7], string Date);
-            cout << "EXAM ADDED!\n";
-
             // add the exam to the school
-            delete coursename;
+
             delete start;
             delete end;
             delete[] groups;
@@ -91,7 +123,6 @@ void add_exams::on_btnAddExam_clicked()
         }
     }
 
-    delete coursename;
     delete[] marks;
     delete[] groups;
 

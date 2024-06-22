@@ -21,11 +21,10 @@ edit_exams::edit_exams(QWidget *parent, int index)
     {
 
         ui->responsible->addItem(QString::fromStdString(teacher->getName()));
-        if(teacher->getName() == exam->getResponsible())
+        if (teacher->getName() == exam->getResponsible())
         {
             ui->responsible->setCurrentIndex(teacher->getId() + 1);
         }
-
     }
 
     ui->L_Day->setText(QString::number(exam->getStartDate().getDay()));
@@ -48,7 +47,8 @@ edit_exams::edit_exams(QWidget *parent, int index)
 
     // set the combobox index to be the index of the course->getModule
     ui->Combo_Module->setCurrentIndex(exam->getModule()->getId() + 1);
-}
+    examId = exam->getid();
+}   
 
 edit_exams::~edit_exams()
 {
@@ -59,14 +59,56 @@ void edit_exams::on_btnCancelExam_clicked()
 {
     this->close();
 }
+
 void edit_exams::on_btnEditExam_clicked()
 {
 
     // validate the input ( if all times are empty)
     if (ui->Combo_Module->currentText().isEmpty() || (ui->g1->isChecked() == false && ui->g2->isChecked() == false && ui->g3->isChecked() == false && ui->g4->isChecked() == false && ui->g5->isChecked() == false && ui->g6->isChecked() == false && ui->g7->isChecked() == false && ui->g8->isChecked() == false && ui->g9->isChecked() == false && ui->g10->isChecked() == false && ui->g11->isChecked() == false && ui->g12->isChecked() == false) || ui->L_Day->text().isEmpty() || ui->L_Month->text().isEmpty() || ui->L_Year->text().isEmpty() || ui->responsible->currentText().isEmpty())
     {
-        ui->Combo_Module->setStyleSheet("border: 1px solid red");
         QMessageBox::critical(this, "Input error", "All fields must be filled out");
+        return;
+    }
+
+    // check if the exam name is already taken, unless it's the same exam
+    // the name of the module from ui->Combo_Module->currentText()
+    for(Exams *exam : ENSIA.getExams())
+    {
+        if(exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString() && exam->getid() != examId)
+        {
+
+            QMessageBox::critical(this, "Input error", "This exam name is already taken");
+            return;
+        }
+    }
+    
+    
+    
+    // if the teacher does not have this module in his courses
+    // first get the teacher object
+    Teachers *teacher = nullptr;
+    for (Teachers *t : ENSIA.getTeachers())
+    {
+        if (t->getName() == ui->responsible->currentText().toStdString())
+        {
+            teacher = t;
+            break;
+        }
+    }
+
+    bool courseFound = false; // Flag to indicate if the course is found
+    for (Courses *course : teacher->getCourses())
+    {
+        if (course->getName() == ui->Combo_Module->currentText().toStdString())
+        {
+            courseFound = true; // Course found, set the flag to true
+            break;
+        }
+    }
+
+    if (!courseFound) // Check if the course was not found after checking all courses
+    {
+        QMessageBox::critical(this, "Input error", "This teacher does not have this module in his courses!");
         return;
     }
 

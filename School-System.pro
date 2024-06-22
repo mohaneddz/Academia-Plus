@@ -20,6 +20,7 @@ SOURCES += \
     Editing/edit_exams.cpp \
     Editing/edit_students.cpp \
     Editing/edit_teachers.cpp \
+    about.cpp \
     main.cpp \
     mainwindow.cpp \
     Frames/studentframe.cpp \
@@ -34,8 +35,11 @@ SOURCES += \
     login.cpp \
     Views/view_teachers.cpp \
     Views/view_courses_frame.cpp \
-    teacher_list_frame.cpp \
-    view_result_single.cpp
+    Views/performance_event.cpp \
+    Views/teacher_list_frame.cpp \
+    Views/view_result_single.cpp \
+    Views/view_average_single.cpp \
+    Views/view_exam_averages.cpp
 
 HEADERS += \
     Classes.h \
@@ -50,6 +54,7 @@ HEADERS += \
     Editing/edit_exams.h \
     Editing/edit_students.h \
     Editing/edit_teachers.h \
+    about.h \
     mainwindow.h \
     Frames/studentframe.h \
     Frames/teacherframe.h \
@@ -63,8 +68,11 @@ HEADERS += \
     login.h \
     Views/view_teachers.h \
     Views/view_courses_frame.h \
-    teacher_list_frame.h \
-    view_result_single.h
+    Views/performance_event.h \
+    Views/teacher_list_frame.h \
+    Views/view_result_single.h \
+    Views/view_average_single.h \
+    Views/view_exam_averages.h
 
 FORMS += \
     Addings/add_courses.ui \
@@ -78,6 +86,7 @@ FORMS += \
     Editing/edit_students.ui \
     Editing/edit_teachers.ui \
     Views/view_group.sui \
+    about.ui \
     course.ui \
     mainwindow.ui \
     Frames/studentframe.ui \
@@ -91,8 +100,11 @@ FORMS += \
     login.ui \
     Views/view_teachers.ui \
     Views/view_courses_frame.ui \
-    teacher_list_frame.ui \
-    view_result_single.ui
+    Views/performance_event.ui \
+    Views/teacher_list_frame.ui \
+    Views/view_result_single.ui \
+    Views/view_average_single.ui \
+    Views/view_exam_averages.ui
     
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

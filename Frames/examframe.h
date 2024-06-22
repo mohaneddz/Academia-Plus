@@ -25,6 +25,8 @@ private slots:
 
     void on_btn_results_clicked();
 
+    void on_btn_averages_clicked();
+
 private:
     Ui::examframe *ui;
 };

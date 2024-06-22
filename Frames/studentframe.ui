@@ -60,6 +60,12 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QLineEdit" name="L_Name">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -112,6 +118,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QLineEdit" name="L_Email">
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -264,7 +276,7 @@
            </font>
           </property>
           <property name="text">
-           <string>View Attendance</string>
+           <string>View Absences</string>
           </property>
          </widget>
         </item>

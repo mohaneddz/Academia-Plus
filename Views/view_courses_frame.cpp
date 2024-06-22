@@ -9,27 +9,41 @@ view_courses_frame::view_courses_frame(QWidget *parent, Members *ts, int index)
     : QWidget(parent), ui(new Ui::view_courses_frame)
 {
     ui->setupUi(this);
-    
+
     t = dynamic_cast<Teachers *>(ts);
+    s = dynamic_cast<Students *>(ts);
     // rename the Course to the Course name & the Role to the integer value of the role
-    ui->Course->setText(ENSIA.getCourses()[index]->getName().c_str());
 
-    //if type = 1 then the role is a Course
-    //if type = 2 then the role is a Tutorial
-    //if type = 3 then the role is a Lab
+    if (t)
+    {
+        ui->Course->setText(ENSIA.getCourses()[index]->getName().c_str());
+        // if type = 1 then the role is a Course
+        // if type = 2 then the role is a Tutorial
+        // if type = 3 then the role is a Lab
 
-    if (t->getType()[index] == 1)
-    {
-        ui->Role->setText("Course");
+        if (t->getType()[index] == 1)
+        {
+            ui->Role->setText("Course");
+        }
+        else if (t->getType()[index] == 2)
+        {
+            ui->Role->setText("Lab");
+        }
+        else if (t->getType()[index] == 3)
+        {
+            ui->Role->setText("Tutorial");
+        }
     }
-    else if (t->getType()[index] == 2)
+
+    if (s)
     {
-        ui->Role->setText("Lab");
+        // course number and then course name
+
+        ui->Course->setText("Course " + QString::number(index + 1));
+        ui->Role->setText(ENSIA.getCourses()[index]->getName().c_str());
+
     }
-    else if (t->getType()[index] == 3)
-    {
-        ui->Role->setText("Tutorial");
-    }
+
 
 }
 

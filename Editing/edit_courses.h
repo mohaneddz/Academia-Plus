@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QVBoxLayout>
 #include "Classes.h"
-#include "teacher_list_frame.h"
+#include "Views/teacher_list_frame.h"
 
 namespace Ui
 {

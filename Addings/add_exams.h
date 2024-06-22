@@ -22,8 +22,8 @@ public:
 
 
 private slots:
-    void on_Auto_clicked();
 
+    void on_Auto_clicked();
     void on_btnAddExam_clicked();
     void on_btnCancelExam_clicked();
 

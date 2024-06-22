@@ -19,9 +19,10 @@ public:
 
 private slots:
 
-    void on_Add_Clicked();
     void on_Cancel_clicked();
     void on_Auto_clicked();
+
+    void on_Add_clicked();
 
 private:
     Ui::add_students *ui;

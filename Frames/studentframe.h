@@ -19,13 +19,14 @@ public:
     ~studentframe();
 
 private slots:
-    void on_btn_unassign_clicked();
+
     void on_btn_edit_clicked();
     void on_btn_attendance_clicked();
 
     void on_btn_performance_clicked();
-
-    void on_btn_assign_clicked();
+    void on_btn_unassign_clicked();
+    void on_btn_courses_clicked();
+    void on_btn_schedule_clicked();
 
 private:
     Ui::studentframe *ui;

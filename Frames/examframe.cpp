@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #include "Editing/edit_exams.h"
 #include "Views/view_exam_results.h"
+#include "Views/view_exam_averages.h"
+#include <QDialog>
 
 ExamFrame::ExamFrame(QWidget *parent)
     : QWidget(parent), ui(new Ui::examframe)
@@ -42,5 +44,14 @@ void ExamFrame::on_btn_results_clicked()
     view_exam_results *results = new view_exam_results(nullptr, ENSIA.getExams()[index]);
     results->setModal(true);
     results->exec();
+}
+
+
+void ExamFrame::on_btn_averages_clicked()
+{
+    int index = ui->L_ID->text().toInt();
+    view_exam_averages *averages = new view_exam_averages(nullptr, ENSIA.getExams()[index]);
+    averages->setModal(true);
+    averages->exec();
 }
 
