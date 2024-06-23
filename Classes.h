@@ -177,28 +177,20 @@ public:
     // Getters and Setters for  name, id, password, email, phone, address, courses, and schedule
     void setName(const string &name);
     string getName() const;
-
     void setId(const long int &id);
     long int getId() const;
-
     void setPassword(const string &password);
     string getPassword() const;
-
     void setEmail(const string &email);
     string getEmail() const;
-
     void setPhone(const string &phone);
     string getPhone() const;
-
     void setAddress(const string &address);
     string getAddress() const;
-
     void setCourses(const vector<Courses *> &courses);
     vector<Courses *> getCourses() const;
-
     void setBirthDate(int day, int month, int year);
     Date &getBirthDate();
-
     void setevent(const string &event, QDateTime &time, int index);
     string getevent(int index);
     QDateTime &geteventtime(int index);
@@ -240,6 +232,7 @@ public:
     Students(string name, string password, string email, string phone, string address, vector<Courses *> course, int Group, int schoolYear, int section, int day, int month, int year);
     virtual ~Students();
     static int totalstudents;
+    
     int getGroup();
     void setGroup(const int newGroup);
     void setYear(const int newYear);
