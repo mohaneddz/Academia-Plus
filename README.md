@@ -34,7 +34,7 @@ Some of the things I removed after the work doubled:
 - **x:** *this list is not exhaustive, it is what it is 😔*
 
 And, unfortunately, there were some features that I could not include due to time constraints and complexity:
-- **The ability to manage the groups on multiple year levels** (if you see the code, you will know why this would require not hard but very boring things to be adjusted) to literally double x5 the groups I have for ENSIA, and make a stacked widget for assigning to each group (not worth +0.25 pts on the CC).
+- **The ability to manage the groups on multiple year levels** (if you see the code, you will know why this would require not hard but very boring things to be adjusted) to literally double x5 the groups I have for ENSIA, and make a stacked widget for assigning to each group.
 - **The ability to manually save and load the data** (now automatically done which is kind of a feature I guess?).
 
 ## Lessons Learned
