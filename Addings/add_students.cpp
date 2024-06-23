@@ -99,7 +99,7 @@ void add_students::on_Add_clicked()
         }
     }
 
-    // Students(string name, long int id, string password, string email, string phone, string address, std::vector<Courses *> course, int Group);
+    // Students(string name, long int id, string password, string email, string phone, string address,  vector<Courses *> course, int Group);
     Students *student = new Students(*name, *password, *email, *phone, *address, *courses, *group, *studyYear, *section, *day, *month, *year);
 
     // push him into the ENSIA students group according ot his group

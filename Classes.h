@@ -141,10 +141,11 @@ public:
     int getid();
 
     Time getStartDate();
-    Time getEndtDate();
+    Time getEndDate();
 
     string getResponsible();
     void setResponsible(const string &newResponsible);
+    bool fixschedule();
 
     // DATA Section :
     static void save(const vector<Exams *> &examsList);
@@ -232,7 +233,7 @@ public:
     Students(string name, string password, string email, string phone, string address, vector<Courses *> course, int Group, int schoolYear, int section, int day, int month, int year);
     virtual ~Students();
     static int totalstudents;
-    
+
     int getGroup();
     void setGroup(const int newGroup);
     void setYear(const int newYear);

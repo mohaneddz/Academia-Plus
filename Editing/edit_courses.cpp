@@ -65,7 +65,7 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
             frames.push_back(frame);
             layout->addWidget(frame);
             // if the teacher is aready assigned to this course, check the checkbox and set the type inside
-            std::vector<Courses *> courses = ENSIA.getTeachers()[i]->getCourses();
+             vector<Courses *> courses = ENSIA.getTeachers()[i]->getCourses();
             for (int j = 0; j < courses.size(); j++)
             {
                 Courses *c = courses[j];

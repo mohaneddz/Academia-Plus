@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include "Classes.h"
 
-using std::string;
+using  std::string;
 
 login::login(QWidget *parent)
     : QDialog(parent), ui(new Ui::login)

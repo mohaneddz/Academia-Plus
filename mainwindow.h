@@ -20,10 +20,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
     // User Info
-    // std::optional<std::tuple<QString, QString, QString, QString>> promptAndDisplayUserInfo();
-    void displayReturnedUserInfo();
+    // optional<tuple<QString, QString, QString, QString>> promptAndDisplayUserInfo();
+    // void displayReturnedUserInfo();
 
     // Data Loading
     void loadTeachers();

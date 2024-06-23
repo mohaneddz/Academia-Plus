@@ -49,7 +49,7 @@ view_exam_averages::view_exam_averages(QWidget *parent, Exams *e, Students *s)
                 totalAverage += groupAverage; // Sum of group averages for total calculation
                 totalGroups++;                // Increment the count of non-empty groups
 
-                View_result_single *groupResult = new View_result_single(this, "Group " + std::to_string(i + 1) + " Average", groupAverage);
+                View_result_single *groupResult = new View_result_single(this, "Group " +  to_string(i + 1) + " Average", groupAverage);
                 layout->addWidget(groupResult);
             }
         }

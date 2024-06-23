@@ -1,4 +1,5 @@
 #include "Classes.h"
+#include <bitset>
 
 // Static Counters
 
@@ -137,15 +138,14 @@ Courses::Courses(const string &newName, string newSchedule[7][2], const bool new
 Courses::~Courses()
 {
     // No dynamic memory to deallocate
-    cout << "Course " << name << " ID :" << id << " has been Removed." << endl;
+    // cout << "Course " << name << " ID :" << id << " has been Removed." << endl;
 }
 
 // Exams --------------------------------------------
 
-Exams::Exams() : Module{}, start{}, end{}, groups{0}
-{
-    // cout << "Exam has been created." << endl;
-};
+Exams::Exams() : Module{}, start{}, end{}, groups{0} {
+                     // cout << "Exam has been created." << endl;
+                 };
 Exams::Exams(Courses *Module, float Marks[7], const Time *start, const Time *end, bool groups[12]) : Module{Module}, start{*start}, end{*end}
 {
 
@@ -162,7 +162,7 @@ Exams::Exams(Courses *Module, float Marks[7], const Time *start, const Time *end
 };
 Exams::~Exams()
 {
-    cout << "Exam has been removed." << endl;
+    // cout << "Exam has been removed." << endl;
 }
 
 void Exams::setModule(Courses *Module)
@@ -183,7 +183,7 @@ Time Exams::getStartDate()
 {
     return start;
 };
-Time Exams::getEndtDate()
+Time Exams::getEndDate()
 {
     return end;
 };
@@ -226,7 +226,91 @@ void Exams::setResponsible(const string &newResponsible)
 {
     responsible = newResponsible;
 }
+bool Exams::fixschedule()
+{
+    struct ExamSlot
+    {
+        int day;
+        int month;
+        int year;
+        int startMinutes;
+        int endMinutes;
+        std::bitset<12> groups;
+    };
 
+    std::vector<ExamSlot> examSlots;
+
+    // Get all exams from ENSIA
+    const auto &allExams = ENSIA.getExams();
+
+    // Helper function to convert Time to minutes since midnight
+    auto timeToMinutes = [](const Time &time)
+    {
+        return time.getHour() * 60 + time.getMinute();
+    };
+
+    // Helper function to check if two bitsets have any common set bits
+    auto haveCommonGroups = [](const std::bitset<12> &a, const std::bitset<12> &b)
+    {
+        return (a & b).any();
+    };
+
+    // Collect time slots for all exams
+    for (const auto &exam : allExams)
+    {
+        if (exam != this)
+        {
+            ExamSlot slot;
+            slot.day = exam->getStartDate().getDay();
+            slot.month = exam->getStartDate().getMonth();
+            slot.year = exam->getStartDate().getYear();
+            slot.startMinutes = timeToMinutes(exam->getStartDate());
+            slot.endMinutes = timeToMinutes(exam->getEndDate());
+
+            // Convert bool array to bitset
+            for (int i = 0; i < 12; ++i)
+            {
+                slot.groups[i] = exam->getGroups()[i];
+            }
+
+            examSlots.push_back(slot);
+        }
+    }
+
+    // Create the current exam's slot
+    ExamSlot currentSlot;
+    currentSlot.day = this->start.getDay();
+    currentSlot.month = this->start.getMonth();
+    currentSlot.year = this->start.getYear();
+    currentSlot.startMinutes = timeToMinutes(this->start);
+    currentSlot.endMinutes = timeToMinutes(this->end);
+
+    // Convert bool array to bitset for current exam
+    for (int i = 0; i < 12; ++i)
+    {
+        currentSlot.groups[i] = this->getGroups()[i];
+    }
+
+    // Check for overlaps
+    for (const auto &slot : examSlots)
+    {
+        // Check if exams are on the same day
+        if (slot.day == currentSlot.day && slot.month == currentSlot.month && slot.year == currentSlot.year)
+        {
+            // Check if time slots overlap
+            if (currentSlot.startMinutes < slot.endMinutes && slot.startMinutes < currentSlot.endMinutes)
+            {
+                // Check if there are any common groups
+                if (haveCommonGroups(slot.groups, currentSlot.groups))
+                {
+                    return true; // Conflict found
+                }
+            }
+        }
+    }
+
+    return false; // No conflicts found
+}
 // Time Class -------------------------------------------------------------------
 
 Time::Time() : Date{}, hour(0), minute(0) {}
@@ -829,10 +913,9 @@ void Students::pushExamResult(double value)
 
 // Constructors and Destructor
 
-School::School() : teachers{}, courses{}, students{}, exams{}
-{
-    // cout << "School has been created." << endl;
-};
+School::School() : teachers{}, courses{}, students{}, exams{} {
+                       // cout << "School has been created." << endl;
+                   };
 School::School(const vector<Students *> &students, const vector<Teachers *> &teachers, const vector<Courses *> &courses, const vector<Exams *> &exams)
 {
     this->students = students;
@@ -867,7 +950,7 @@ School::~School()
         delete exam;
     }
 
-    cout << "School has been removed." << endl;
+    // cout << "School has been removed." << endl;
 }
 void School::setCourses(const vector<Courses *> &courses)
 {
@@ -1306,7 +1389,6 @@ vector<Exams *> School::getExams()
 {
     return exams;
 }
-
 
 // Data and File Handling
 

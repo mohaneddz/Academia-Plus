@@ -17,15 +17,17 @@ edit_exams::edit_exams(QWidget *parent, int index)
         ui->Combo_Module->addItem(QString::fromStdString(course->getName()));
     }
 
+    int responsibleIndex = 0;
     for (Teachers *teacher : ENSIA.getTeachers())
     {
 
         ui->responsible->addItem(QString::fromStdString(teacher->getName()));
         if (teacher->getName() == exam->getResponsible())
         {
-            ui->responsible->setCurrentIndex(teacher->getId() + 1);
+            responsibleIndex = teacher->getId();
         }
     }
+    ui->responsible->setCurrentIndex(responsibleIndex);
 
     ui->L_Day->setText(QString::number(exam->getStartDate().getDay()));
     ui->L_Month->setText(QString::number(exam->getStartDate().getMonth()));
@@ -45,10 +47,14 @@ edit_exams::edit_exams(QWidget *parent, int index)
     ui->g11->setChecked(exam->getGroups()[10]);
     ui->g12->setChecked(exam->getGroups()[11]);
 
+    // set the time
+    ui->start->setTime(QTime(exam->getStartDate().getHour(), exam->getStartDate().getMinute()));
+    ui->end->setTime(QTime(exam->getEndDate().getHour(), exam->getEndDate().getMinute()));
+
     // set the combobox index to be the index of the course->getModule
     ui->Combo_Module->setCurrentIndex(exam->getModule()->getId() + 1);
     examId = exam->getid();
-}   
+}
 
 edit_exams::~edit_exams()
 {
@@ -72,18 +78,22 @@ void edit_exams::on_btnEditExam_clicked()
 
     // check if the exam name is already taken, unless it's the same exam
     // the name of the module from ui->Combo_Module->currentText()
-    for(Exams *exam : ENSIA.getExams())
+    for (Exams *exam : ENSIA.getExams())
     {
-        if(exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString() && exam->getid() != examId)
+        if (exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString() && exam->getid() != examId)
         {
 
             QMessageBox::critical(this, "Input error", "This exam name is already taken");
             return;
         }
     }
-    
-    
-    
+
+    if(ui->start->time() > ui->end->time())
+    {
+        QMessageBox::critical(this, "Input error", "The start time must be before the end time");
+        return;
+    }
+
     // if the teacher does not have this module in his courses
     // first get the teacher object
     Teachers *teacher = nullptr;
@@ -141,6 +151,19 @@ void edit_exams::on_btnEditExam_clicked()
 
     exam->setGroups(groups);
     exam->setDate(*start, *end);
+
+    if(exam->fixschedule())
+    {
+        QMessageBox::critical(this, "Input error", "The exam schedule is conflicting with another exam");
+        delete start;
+        delete end;
+        delete[] groups;
+        ENSIA.removeExam(exam->getid());
+        delete exam;
+        return;
+    }
+
+    exam->setResponsible(ui->responsible->currentText().toStdString());
 
     delete start;
     delete end;

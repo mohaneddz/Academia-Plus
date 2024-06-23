@@ -35,7 +35,7 @@ void add_exams::on_btnAddExam_clicked()
     // check if the exam name is already taken
     for (Exams *exam : ENSIA.getExams())
     {
-        if (exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString())
+        if (exam && exam->getModule()->getName() == ui->Combo_Module->currentText().toStdString())
         {
             QMessageBox::critical(this, "Input error", "This exam already exists!");
             return;
@@ -69,8 +69,14 @@ void add_exams::on_btnAddExam_clicked()
         return;
     }
 
-    // iterate over the vector of courses, and add each course name to the module combo box as an optioon in the list
+    // check if the start time is before the end time
+    if (ui->start->time() > ui->end->time())
+    {
+        QMessageBox::critical(this, "Input error", "The start time must be before the end time!");
+        return;
+    }
 
+    // iterate over the vector of courses, and add each course name to the module combo box as an optioon in the list
     bool *groups = new bool[13];
     groups[0] = ui->g1->isChecked();
     groups[1] = ui->g2->isChecked();
@@ -89,11 +95,23 @@ void add_exams::on_btnAddExam_clicked()
 
     for (Courses *course : ENSIA.getCourses())
     {
-        if (course->getId() == course->getId())
+        if (course->getName() == ui->Combo_Module->currentText().toStdString())
         {
             Time *start = new Time(ui->start->time().hour(), ui->start->time().minute(), ui->L_Day->text().toInt(), ui->L_Month->text().toInt(), ui->L_Year->text().toInt());
             Time *end = new Time(ui->end->time().hour(), ui->end->time().minute(), ui->L_Day->text().toInt(), ui->L_Month->text().toInt(), ui->L_Year->text().toInt());
             Exams *exam = new Exams(course, marks, start, end, groups);
+
+            if (exam->fixschedule())
+            {
+                QMessageBox::critical(this, "Input error", "The exam schedule is conflicting with another exam");
+                delete start;
+                delete end;
+                delete[] groups;
+                ENSIA.removeExam(exam->getid());
+                delete exam;
+                return;
+            }
+
             exam->setResponsible(ui->responsible->currentText().toStdString());
 
             // Iterate over each group
@@ -147,5 +165,5 @@ void add_exams::on_Auto_clicked()
 
     ui->L_Day->setText("1");
     ui->L_Month->setText("1");
-    ui->L_Year->setText("2021");
+    ui->L_Year->setText("2024");
 }

@@ -3,51 +3,51 @@ teachers :
 
     void readData()
     {
-        std::ifstream file("teachers.data");
+        ifstream file("teachers.data");
         if (!file)
         {
-            std::cerr << "Unable to open file teachers.data" << endl;
+            cerr << "Unable to open file teachers.data" << endl;
             return;
         }
 
-        std::string line;
+        string line;
         int scheduleIndex = 0;
         int courseIndex = 0;
-        while (std::getline(file, line))
+        while (getline(file, line))
         {
-            if (line.find("name :") != std::string::npos)
+            if (line.find("name :") != string::npos)
             {
                 this->name = line.substr(7);
             }
-            else if (line.find("id :") != std::string::npos)
+            else if (line.find("id :") != string::npos)
             {
-                this->id = std::stol(line.substr(5));
+                this->id = stol(line.substr(5));
             }
-            else if (line.find("password :") != std::string::npos)
+            else if (line.find("password :") != string::npos)
             {
                 this->password = line.substr(11);
             }
-            else if (line.find("email :") != std::string::npos)
+            else if (line.find("email :") != string::npos)
             {
                 this->email = line.substr(8);
             }
-            else if (line.find("phone :") != std::string::npos)
+            else if (line.find("phone :") != string::npos)
             {
                 this->phone = line.substr(8);
             }
-            else if (line.find("address :") != std::string::npos)
+            else if (line.find("address :") != string::npos)
             {
                 this->address = line.substr(10);
             }
-            else if (line.find("courses.ID :") != std::string::npos)
+            else if (line.find("courses.ID :") != string::npos)
             {
                 if (courseIndex < MAX_Courses)
                 {
-                    this->course[courseIndex]->setId(std::stoi(line.substr(13)));
+                    this->course[courseIndex]->setId(stoi(line.substr(13)));
                     courseIndex++;
                 }
             }
-            else if (line.find("schedule :") != std::string::npos)
+            else if (line.find("schedule :") != string::npos)
             {
                 if (scheduleIndex < 7)
                 {
@@ -55,9 +55,9 @@ teachers :
                     scheduleIndex++;
                 }
             }
-            else if (line.find("groups :") != std::string::npos)
+            else if (line.find("groups :") != string::npos)
             {
-                std::istringstream iss(line.substr(9));
+                istringstream iss(line.substr(9));
                 for (int i = 0; i < 13; i++)
                 {
                     int bit;
@@ -65,7 +65,7 @@ teachers :
                     this->groups[i] = bit;
                 }
             }
-            else if (line.find("--END--") != std::string::npos)
+            else if (line.find("--END--") != string::npos)
             {
                 break;
             }
@@ -75,10 +75,10 @@ teachers :
     }
     void saveData()
     {
-        std::ofstream file("teachers.data", std::ios::app);
+        ofstream file("teachers.data", ios::app);
         if (!file)
         {
-            std::cerr << "Unable to open file teachers.data" << endl;
+            cerr << "Unable to open file teachers.data" << endl;
             return;
         }
 
@@ -116,38 +116,38 @@ teachers :
     }
     void empty()
     {
-        std::ofstream ofs("teachers.txt", std::ios::out);
+        ofstream ofs("teachers.txt", ios::out);
         ofs.close();
     }}
 
 Students : {
        void empty()
     {
-        std::ofstream ofs("students.txt", std::ios::out);
+        ofstream ofs("students.txt", ios::out);
         ofs.close();
     }
     void readData()
     {
-        std::ifstream file("courses.data");
+        ifstream file("courses.data");
         if (!file)
         {
-            std::cerr << "Unable to open file courses.data" << endl;
+            cerr << "Unable to open file courses.data" << endl;
             return;
         }
 
-        std::string line;
+        string line;
         int scheduleIndex = 0;
-        while (std::getline(file, line))
+        while (getline(file, line))
         {
-            if (line.find("name :") != std::string::npos)
+            if (line.find("name :") != string::npos)
             {
                 this->name = line.substr(7); // Skip "name : "
             }
-            else if (line.find("id :") != std::string::npos)
+            else if (line.find("id :") != string::npos)
             {
-                this->id = std::stoi(line.substr(5)); // Skip "id : "
+                this->id = stoi(line.substr(5)); // Skip "id : "
             }
-            else if (line.find("schedule :") != std::string::npos)
+            else if (line.find("schedule :") != string::npos)
             {
                 if (scheduleIndex < 7)
                 {
@@ -155,11 +155,11 @@ Students : {
                     scheduleIndex++;
                 }
             }
-            else if (line.find("group :") != std::string::npos)
+            else if (line.find("group :") != string::npos)
             {
                 this->group = stoi(line.substr(7)); // Skip "name : "
             }
-            else if (line.find("schedule :") != std::string::npos)
+            else if (line.find("schedule :") != string::npos)
             {
                 if (scheduleIndex < 7)
                 {
@@ -167,7 +167,7 @@ Students : {
                     scheduleIndex++;
                 }
             }
-            else if (line.find("--END--") != std::string::npos)
+            else if (line.find("--END--") != string::npos)
             {
                 break;
             }
@@ -177,7 +177,7 @@ Students : {
     }
     void saveData()
     {
-        ofstream file("students.data", std::ios::app);
+        ofstream file("students.data", ios::app);
         if (file.is_open())
         {
             file << "name : " << name << "\n"; // Save the instance name
@@ -197,26 +197,26 @@ Students : {
 Courses {
    void readData()
     {
-        std::ifstream file("courses.data");
+        ifstream file("courses.data");
         if (!file)
         {
-            std::cerr << "Unable to open file courses.data" << endl;
+            cerr << "Unable to open file courses.data" << endl;
             return;
         }
 
-        std::string line;
+        string line;
         int scheduleIndex = 0;
-        while (std::getline(file, line))
+        while (getline(file, line))
         {
-            if (line.find("name :") != std::string::npos)
+            if (line.find("name :") != string::npos)
             {
                 this->name = line.substr(7); // Skip "name : "
             }
-            else if (line.find("id :") != std::string::npos)
+            else if (line.find("id :") != string::npos)
             {
-                this->id = std::stoi(line.substr(5)); // Skip "id : "
+                this->id = stoi(line.substr(5)); // Skip "id : "
             }
-            else if (line.find("schedule :") != std::string::npos)
+            else if (line.find("schedule :") != string::npos)
             {
                 if (scheduleIndex < 7)
                 {
@@ -224,9 +224,9 @@ Courses {
                     scheduleIndex++;
                 }
             }
-            else if (line.find("groups :") != std::string::npos)
+            else if (line.find("groups :") != string::npos)
             {
-                std::istringstream iss(line.substr(8)); // Skip "group : "
+                istringstream iss(line.substr(8)); // Skip "group : "
                 for (int i = 0; i < 13; i++)
                 {
                     int bit;
@@ -234,7 +234,7 @@ Courses {
                     this->groups[i] = bit;
                 }
             }
-            else if (line.find("--END--") != std::string::npos)
+            else if (line.find("--END--") != string::npos)
             {
                 break;
             }
@@ -244,7 +244,7 @@ Courses {
     }
     void saveData()
     {
-        ofstream file("courses.data", std::ios::app);
+        ofstream file("courses.data", ios::app);
         if (file.is_open())
         {
             file << "name : " << name << "\n"; // Save the instance name
@@ -268,11 +268,11 @@ REFRESHING {
     
     void refreshCourses()
     {
-        std::ifstream file("courses.txt");
-        std::string line;
-        while (std::getline(file, line))
+        ifstream file("courses.txt");
+        string line;
+        while (getline(file, line))
         {
-            if (line.find("name") != std::string::npos)
+            if (line.find("name") != string::npos)
             {
                 Courses *course = new Courses();
                 course->readData();
@@ -281,11 +281,11 @@ REFRESHING {
     }
     void refreshStudents()
     {
-        std::ifstream file("students.txt");
-        std::string line;
-        while (std::getline(file, line))
+        ifstream file("students.txt");
+        string line;
+        while (getline(file, line))
         {
-            if (line.find("name") != std::string::npos)
+            if (line.find("name") != string::npos)
             {
                 Students *student = new Students();
                 student->readData();
@@ -294,11 +294,11 @@ REFRESHING {
     }
     void refreshTeachers()
     {
-        std::ifstream file("teachers.txt");
-        std::string line;
-        while (std::getline(file, line))
+        ifstream file("teachers.txt");
+        string line;
+        while (getline(file, line))
         {
-            if (line.find("name") != std::string::npos)
+            if (line.find("name") != string::npos)
             {
                 Teachers *teacher = new Teachers();
                 teacher->readData();

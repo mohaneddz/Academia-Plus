@@ -626,7 +626,7 @@ void MainWindow::search(string Nsearch = "")
 
             if (exam->getModule()->getGroups()[i] == true)
             {
-                *groups += std::to_string(i) + " ";
+                *groups +=  to_string(i) + " ";
             }
         }
 
@@ -730,7 +730,7 @@ void MainWindow::search(string Nsearch = "")
         {
             if (course->getGroups()[i] == true)
             {
-                *groups += std::to_string(i) + " ";
+                *groups +=  to_string(i) + " ";
             }
         }
 
