@@ -28,7 +28,7 @@ At some point, I lost the motivation to continue the project. This happened afte
 Some of the things I removed after the work doubled:
 - **1:** *Removed the ability to add and remove Icons to the courses, teachers, students (the UI got janky after I added all those extra features)*
 - **2:** *I had many easter eggs hidden in the project (such as hidden auto image assignments when naming the courses the same as our ENSIA courses), which is usually the most I have in any project [Check my ITE Website if you want more context about my usual style], still left some there*
-- **3:** *Removed the ability to set the schedules on a predefined timetable that the courses must be adjusted to (now it is completely the opposite)*
+- **3:** *Removed the ability to set the schedules on a predefined timetable that the courses must be adjusted to (now it is completely the opposite, where the schdule is determined by the courses )*
 - **4:** *Removed some courses sections, such as descriptions, locations, and additional links for extra resources..etc*
 - **5:** *Exam types were multiples (Finals, Midterms, Tests), maybe some parts of the code remained, but the calculations alongside the dynamic rework and lack of motivation made me just stick to the assignment*
 - **x:** *this list is not exhaustive, it is what it is 😔*
