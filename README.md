@@ -53,25 +53,25 @@ Please feel free to explore the code, and reach out if you have any questions or
 Here are some screenshots of the application:
 
 ### Login Window
-![Screenshot 1](screenshots/qt1.png)
+![Screenshot 1](Screenshots/qt1.png)
 *Either use admin|admin, or an actual Name|Password combination from the database*
 
 ### Home Page
-![Screenshot 2](screenshots/qt2.png)
+![Screenshot 2](Screenshots/qt2.png)
 *Home Page for the program, alongside the Main Logo and homework description*
 
 ### Menu Illustation
-![Screenshot 3](screenshots/qt3.png)
+![Screenshot 3](Screenshots/qt3.png)
 *Example of a Menu, here chosen Teachers, all features are implemented*
 
 ### Adding a new member/Element to the School!
-![Screenshot 4](screenshots/qt4.png)
+![Screenshot 4](Screenshots/qt4.png)
 *Depends on the member type :Teacher/Student/Course/Exam*
 
 ### User Credentials
-![Screenshot 5](screenshots/qt5.png)
+![Screenshot 5](Screenshots/qt5.png)
 *Simple User interface for showcasing the information related to the user of the application*
 
 ### About Context window
-![Screenshot 6](screenshots/qt6.png)
+![Screenshot 6](Screenshots/qt6.png)
 *Simple about window, Embracing hardowrk and showcasing motivation*
