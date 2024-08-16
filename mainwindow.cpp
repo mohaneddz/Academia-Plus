@@ -39,7 +39,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-
     courseNameInput = new QLineEdit(this);
     ui->setupUi(this);
 
@@ -73,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QPixmap teacherImage(":/path/to/teacher/image.png");
     QPixmap studentImage(":/path/to/student/image.png");
+
 }
 MainWindow::~MainWindow()
 {
@@ -85,7 +85,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// Course Image Assignment ( Depricatede  )
+// Course Image Assignment ( Depricated  )
 // QString MainWindow::assignImage(const QString &courseName)
 // {
 //     if (courseName == "OOP")
@@ -220,7 +220,7 @@ void MainWindow::loadCourses()
         // Create a new courseframe
         CourseFrame *courseFrame = new CourseFrame();
         connect(courseFrame, &CourseFrame::trigger, this, &MainWindow::loadCourses);
-
+        
         for (int i = 0; i < 12; i++)
         {
             if (course->getGroups()[i] == 1)
@@ -492,6 +492,7 @@ void MainWindow::on_Add_courses_btn_clicked()
 {
 
     Add_Courses add_courses;
+    add_courses.setWindowTitle("Adding Options");
     add_courses.setModal(true);
     add_courses.exec();
     loadCourses();
@@ -499,6 +500,7 @@ void MainWindow::on_Add_courses_btn_clicked()
 void MainWindow::on_Add_Teachers_btn_clicked()
 {
     add_teachers add_teachers;
+    add_teachers.setWindowTitle("Adding Options");
     add_teachers.setModal(true);
     add_teachers.exec();
     loadTeachers();
@@ -506,6 +508,7 @@ void MainWindow::on_Add_Teachers_btn_clicked()
 void MainWindow::on_Add_Exams_btn_clicked()
 {
     add_exams add_exams;
+    add_exams.setWindowTitle("Adding Options");
     add_exams.setModal(true);
     add_exams.exec();
     loadExams();
@@ -513,6 +516,7 @@ void MainWindow::on_Add_Exams_btn_clicked()
 void MainWindow::on_Add_Students_btn_clicked()
 {
     add_students add_students;
+    add_students.setWindowTitle("Adding Options");
     add_students.setModal(true);
     add_students.exec();
     loadStudents();
@@ -800,6 +804,7 @@ void MainWindow::on_search_btn_clicked()
 void MainWindow::on_About_clicked()
 {
     About about;
+    about.setWindowTitle("About Project");
     about.setModal(true);
     about.exec();
 }
@@ -807,6 +812,7 @@ void MainWindow::on_About_clicked()
 void MainWindow::on_About_btn1_clicked()
 {
     About about;
+    about.setWindowTitle("About Project");
     about.setModal(true);
     about.exec();
 }

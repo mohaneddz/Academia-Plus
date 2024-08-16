@@ -32,6 +32,7 @@ void studentframe::on_btn_edit_clicked()
     int index = ui->L_ID->text().toInt();
     auto edit = new edit_Students(nullptr, index);
     connect(edit, &QDialog::finished, this, &studentframe::trigger);
+    edit->setWindowTitle("Editing Options");
     edit->setModal(true);
     edit->exec();
 }
@@ -67,4 +68,3 @@ void studentframe::on_btn_schedule_clicked()
     edit->setModal(true);
     edit->exec();
 }
-

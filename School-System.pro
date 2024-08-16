@@ -3,6 +3,8 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+DESTDIR = $$PWD/build
+QMAKE_CXXFLAGS += -Wno-sign-compare
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -43,7 +45,6 @@ SOURCES += \
 
 HEADERS += \
     Classes.h \
-    EditCourseDialog.h \
     Addings/add_courses.h \
     Addings/add_exams.h \
     Addings/add_students.h \

@@ -6,11 +6,9 @@
         <file>icon/teacheruser.png</file>
         <file>icon/studentuser.png</file>
         <file>icon/information.png</file>
+        <file>icon/Home.png</file>
     </qresource>
-    <qresource prefix="/icon">
-        <file>icon/acad fancy trans_upscayl_4x_realesrgan-x4plus-anime.png</file>
-        <file>icon/kv3qWHo2QcqKOqRClNzJYQ - Copy.png</file>
-        <file>icon/high acad fancy.png</file>
+    <qresource prefix="/icons">
         <file>icon/icon.ico</file>
         <file>icon/Courses/analysis.png</file>
         <file>icon/Courses/English..png</file>
@@ -19,8 +17,9 @@
         <file>icon/Courses/oop.png</file>
         <file>icon/Courses/statistics.png</file>
         <file>icon/low Icon.png</file>
+        <file>icon/high acad fancy.png</file>
     </qresource>
-    <qresource prefix="/courses">
+    <qresource prefix="/courses(Deprecated)">
         <file>icon/Courses/analysis.png</file>
         <file>icon/Courses/English..png</file>
         <file>icon/Courses/linear_algebra.png</file>

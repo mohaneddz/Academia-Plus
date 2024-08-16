@@ -1,6 +1,6 @@
 #include "courseframe.h"
-#include "mainwindow.h"
 #include "ui_courseframe.h"
+#include "mainwindow.h"
 #include "Editing/edit_courses.h"
 #include "Views/view_teachers.h"
 #include "Views/view_schedule.h"
@@ -27,12 +27,11 @@ void CourseFrame::on_btn_delete_clicked()
 void CourseFrame::on_btn_edit_clicked()
 {
     int index = ui->L_ID->text().toInt();
-
-    edit_courses edit(index);
-    edit.setModal(true);
-    edit.exec();
-
-    emit trigger();
+    auto edit = new edit_courses(index, nullptr);
+    connect(edit, &QDialog::finished, this, &CourseFrame::trigger);
+    edit->setWindowTitle("Editing Options");
+    edit->setModal(true);
+    edit->exec();
 }
 void CourseFrame::on_btn_teachers_clicked()
 {
@@ -48,7 +47,7 @@ void CourseFrame::on_btn_schedule_clicked()
 {
     int index = ui->L_ID->text().toInt();
 
-    view_schedule view(this,0, ENSIA.getCourses()[index]);
+    view_schedule view(this, 0, ENSIA.getCourses()[index]);
     view.setModal(true);
     view.exec();
 }

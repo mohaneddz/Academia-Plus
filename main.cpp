@@ -14,7 +14,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setWindowIcon(QIcon(":/icon/icon/icon.ico"));
+    a.setWindowIcon(QIcon(":/icons/icon/icon.ico"));
 
     QFile style_file("://style.qss");
     if (style_file.open(QFile::ReadOnly | QFile::Text))
@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
     ENSIA.setStudents(Students::load());
 
     login h;
+    h.setWindowTitle("Login");
+
     if (h.exec() == QDialog::Rejected)
         return 0;
 
@@ -66,6 +68,8 @@ int main(int argc, char *argv[])
                                .arg(QString::fromStdString(*Susername), QString::fromStdString(*Semail), QString::fromStdString(*Sphone), QString::fromStdString(*Sproffession), QString(QString::fromStdString(*Spassword).length(), '*'));
 
     MainWindow w;
+    w.setWindowTitle("Academia Plus©");
+
 
     if (h.job == "student")
     {

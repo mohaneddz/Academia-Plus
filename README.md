@@ -75,3 +75,8 @@ Here are some screenshots of the application:
 ### About Context window
 ![Screenshot 6](Screenshots/qt6.png)
 *Simple about window, Embracing hardowrk and showcasing motivation*
+
+### Running the Application on Qt
+![Screenshot 7](Screenshots/howto.png)
+*After downloading the zip file, make sure to set the project build location in order to run the program*
+

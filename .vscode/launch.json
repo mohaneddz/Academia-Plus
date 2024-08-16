@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Mohaned_Dz/Documents/Programming/School Management System/School-System",
-      "program": "c:/Users/Mohaned_Dz/Documents/Programming/School Management System/School-System/build/Debug/outDebug",
+      "cwd": "c:/Users/Mohaned_Dz/Documents/GitHub/School-Management-System",
+      "program": "c:/Users/Mohaned_Dz/Documents/GitHub/School-Management-System/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

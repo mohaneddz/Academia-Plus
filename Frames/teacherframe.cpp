@@ -51,6 +51,7 @@ void teacherframe::on_btnEdit_clicked()
     int index = ui->L_ID->text().toInt();
     auto edit = new edit_Teachers(nullptr, index);
     connect(edit, &QDialog::finished, this, &teacherframe::trigger);
+    edit->setWindowTitle("Editing Options");
     edit->setModal(true);
     edit->exec();
 }

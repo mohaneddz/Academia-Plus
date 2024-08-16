@@ -253,7 +253,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="resources.qrc">:/icon/icon/acad fancy trans_upscayl_4x_realesrgan-x4plus-anime.png</pixmap>
+              <pixmap resource="resources.qrc">:/icons/icon/high acad fancy.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -296,8 +296,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1342</width>
-                <height>854</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -344,8 +344,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>76</width>
-                <height>24</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -392,8 +392,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>76</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_10"/>
@@ -436,8 +436,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>76</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_9"/>
@@ -458,8 +458,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>1342</width>
-                <height>911</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_6"/>
@@ -493,6 +493,9 @@
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="resources.qrc">:/icons/icon/high acad fancy.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -565,7 +568,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="resources.qrc">:/icon/icon/kv3qWHo2QcqKOqRClNzJYQ - Copy.png</pixmap>
+            <pixmap resource="resources.qrc">:/icon/Home.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -787,7 +790,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap resource="resources.qrc">:/icon/icon/kv3qWHo2QcqKOqRClNzJYQ - Copy.png</pixmap>
+            <pixmap resource="resources.qrc">:/icon/Home.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>

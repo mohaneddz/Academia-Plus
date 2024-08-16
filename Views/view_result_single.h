@@ -2,7 +2,7 @@
 #define VIEW_RESULT_SINGLE_H
 
 #include <QWidget>
-#include <QDialog>>
+#include <QDialog>
 #include "Classes.h"
 
 namespace Ui

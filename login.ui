@@ -124,6 +124,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>pass</tabstop>
+  <tabstop>abutton</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>tbutton</tabstop>
+  <tabstop>sbutton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

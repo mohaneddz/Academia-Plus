@@ -34,6 +34,7 @@ void ExamFrame::on_btn_edit_clicked()
     int index = ui->L_ID->text().toInt();
     auto edit = new edit_exams(nullptr, index);
     connect(edit, &QDialog::finished, this, &ExamFrame::trigger);
+    edit->setWindowTitle("Editing Options");
     edit->setModal(true);
     edit->exec();
 }

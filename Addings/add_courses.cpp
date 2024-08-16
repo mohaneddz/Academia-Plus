@@ -141,7 +141,7 @@ void Add_Courses::on_Add_clicked()
         }
     }
 
-    for (auto i : ENSIA.getCourses() )
+    for (auto i : ENSIA.getCourses())
     {
         cout << i->getName() << endl;
     }
@@ -165,7 +165,6 @@ void Add_Courses::on_Add_clicked()
             }
         }
     }
-
 
     Courses::totalcourses--;
     delete[] groups;

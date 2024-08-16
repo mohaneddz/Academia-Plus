@@ -13,7 +13,7 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
 
     Courses *course = ENSIA.getCourses()[courseId];
 
-    // set the fields :
+    // Set the fields
     findChild<QLineEdit *>("Line_coursename")->setText(QString::fromStdString(course->getName()));
 
     ui->g1->setChecked(course->getGroups()[0]);
@@ -29,7 +29,7 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
     ui->g11->setChecked(course->getGroups()[10]);
     ui->g12->setChecked(course->getGroups()[11]);
 
-    // set the schedule
+    // Set the schedule
     ui->sunday_start->setText(QString::fromStdString(course->getSchedule()[0][0]));
     ui->sunday_end->setText(QString::fromStdString(course->getSchedule()[0][1]));
     ui->monday_start->setText(QString::fromStdString(course->getSchedule()[1][0]));
@@ -45,18 +45,11 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
     ui->saturday_start->setText(QString::fromStdString(course->getSchedule()[6][0]));
     ui->saturday_end->setText(QString::fromStdString(course->getSchedule()[6][1]));
 
-    // set the teachers
-    // Create a new scroll area
-    QScrollArea *scrollArea = new QScrollArea();
+    // Set the teachers
+    QScrollArea *scrollArea = new QScrollArea(this);
+    QWidget *checkboxWidget = new QWidget(scrollArea);
+    QVBoxLayout *layout = new QVBoxLayout(checkboxWidget);
 
-    // Create a new widget to hold the checkboxes
-    QWidget *checkboxWidget = new QWidget();
-
-    // Create a new layout for the checkbox widget
-    QVBoxLayout *layout = new QVBoxLayout();
-
-    // Add the checkboxes to the layout
-    // Add the teacher list frames to the layout
     for (int i = 0; i < ENSIA.getTeachers().size(); i++)
     {
         if (ENSIA.getTeachers().at(i) != nullptr)
@@ -64,8 +57,8 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
             teacher_list_frame *frame = new teacher_list_frame(this, i);
             frames.push_back(frame);
             layout->addWidget(frame);
-            // if the teacher is aready assigned to this course, check the checkbox and set the type inside
-             vector<Courses *> courses = ENSIA.getTeachers()[i]->getCourses();
+            // If the teacher is already assigned to this course, check the checkbox and set the type inside
+            vector<Courses *> courses = ENSIA.getTeachers()[i]->getCourses();
             for (int j = 0; j < courses.size(); j++)
             {
                 Courses *c = courses[j];
@@ -78,13 +71,13 @@ edit_courses::edit_courses(int courseId, QWidget *parent)
                 }
             }
         }
-
-        checkboxWidget->setLayout(layout);
-        scrollArea->setWidgetResizable(true);
-        scrollArea->setWidget(checkboxWidget);
-        ui->List_teachers->setViewport(scrollArea);
     }
+
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(checkboxWidget);
+    ui->List_teachers->setViewport(scrollArea);
 }
+
 edit_courses::~edit_courses()
 {
     delete ui;
@@ -110,14 +103,17 @@ void edit_courses::on_btnEditCourse_clicked()
     Courses *course = ENSIA.getCourses()[courseId];
     course->setName(ui->Line_coursename->text().toStdString());
     course->setGroups(new bool[13]{ui->g1->isChecked(), ui->g2->isChecked(), ui->g3->isChecked(), ui->g4->isChecked(), ui->g5->isChecked(), ui->g6->isChecked(), ui->g7->isChecked(), ui->g8->isChecked(), ui->g9->isChecked(), ui->g10->isChecked(), ui->g11->isChecked(), ui->g12->isChecked()});
-    course->setSchedule(new string[7][2]{
+    string sch[7][2] = {
         {ui->sunday_start->text().toStdString(), ui->sunday_end->text().toStdString()},
         {ui->monday_start->text().toStdString(), ui->monday_end->text().toStdString()},
         {ui->tuesday_start->text().toStdString(), ui->tuesday_end->text().toStdString()},
         {ui->wednesday_start->text().toStdString(), ui->wednesday_end->text().toStdString()},
         {ui->thursday_start->text().toStdString(), ui->thursday_end->text().toStdString()},
         {ui->friday_start->text().toStdString(), ui->friday_end->text().toStdString()},
-        {ui->saturday_start->text().toStdString(), ui->saturday_end->text().toStdString()}});
+        {ui->saturday_start->text().toStdString(), ui->saturday_end->text().toStdString()}};
+
+    // Pass the schedule to the course
+    course->setSchedule(sch);
 
     // get this courses index
 
@@ -127,7 +123,7 @@ void edit_courses::on_btnEditCourse_clicked()
         if (frames[i]->check())
         {
             ENSIA.getTeachers()[i]->addCourse(course);
-            
+
             for (int j = 0; j < 7; j++)
             {
                 if (ENSIA.getTeachers()[i]->getCourses()[0]->getSchedule()[j][0] != "")
@@ -143,5 +139,6 @@ void edit_courses::on_btnEditCourse_clicked()
         }
     }
 
+    emit trigger();
     this->close();
 }

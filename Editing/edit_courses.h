@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include "Classes.h"
 #include "Views/teacher_list_frame.h"
+#include "Frames/courseframe.h"
 
 namespace Ui
 {
@@ -14,6 +15,9 @@ namespace Ui
 class edit_courses : public QDialog
 {
     Q_OBJECT
+
+signals:
+    void trigger();
 
 public:
     explicit edit_courses(int courseId, QWidget *parent = nullptr);
