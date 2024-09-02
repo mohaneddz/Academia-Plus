@@ -74,6 +74,7 @@ Here are some screenshots of the application:
 
 ### About Context window
 ![Screenshot 6](Screenshots/qt6.png)
+
 *Simple about window, Embracing hardowrk and showcasing motivation*
 
 ### Running the Application on Qt
