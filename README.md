@@ -1,4 +1,5 @@
-# School-Management-System
+# Avademia Plus ©
+## School-Management-System!
 
 **Prototype Demo**: A C++ Qt application created to simulate a school environment.
 
