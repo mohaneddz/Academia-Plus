@@ -1,110 +1,79 @@
-Academia Plus © 🏫
-School-Management-System! 🚀
+# Academia Plus © 🏫
+## School-Management-System! 🚀
 
-Prototype Demo: A C++ Qt application simulating a school environment.
+**Prototype Demo**: A C++ Qt application simulating a school environment.
 
-Introduction 👋
+## Introduction 👋
+Welcome to the **School-Management-System** project! This prototype, built with Qt C++, simulates a school system with students, teachers, exams, and courses.  It was a 20-day, non-mandatory assignment focused on exploring how such a system could be structured. This is a **demo**, and it may be significantly reworked in the future.
 
-Welcome to the School-Management-System project! This prototype, built with Qt C++, simulates a school system with students, teachers, exams, and courses. It was a 20-day, non-mandatory assignment focused on exploring how such a system could be structured. This is a demo, and it may be significantly reworked in the future.
-
-Project Design 🎨
-
-The project started with a day of interface design and class hierarchy planning. The core C++ functionality was completed quickly. The design aims for a sleek, minimalist, and modern user experience, despite some Qt limitations. The application dynamically adjusts layers and widgets to present information.
+## Project Design 🎨
+The project started with a day of interface design and class hierarchy planning.  The core C++ functionality was completed quickly. The design aims for a sleek, minimalist, and modern user experience, despite some Qt limitations. The application dynamically adjusts layers and widgets to present information.
 
 This project was experimental. Different approaches (arrays, vectors, pointers, extern functions) were used across classes to explore their potential. This led to a less consistent codebase but provided valuable learning. The project also uses local storage with C++ file handling - No Internet Required!
 
-Project Journey 🗺️
-Timeline ⏳
+## Project Journey 🗺️
 
-Completed in 20 days, but with extensive rework due to evolving requirements and challenges. What started simply became more complex with added features and problem-solving.
+### Timeline ⏳
+Completed in 20 days, but with extensive rework due to evolving requirements and challenges.  What started simply became more complex with added features and problem-solving.
 
-Challenges and Motivation 💪
-
+### Challenges and Motivation 💪
 Major challenges included:
-
-Switching from arrays to vectors mid-project.
-
-Dynamically allocating resources.
-
-Adapting functions to Qt.
-
-Redesigning for multiple teacher roles and student year levels.
-
-Shifting the scheduling system to be course-focused.
+- Switching from arrays to vectors mid-project.
+- Dynamically allocating resources.
+- Adapting functions to Qt.
+- Redesigning for multiple teacher roles and student year levels.
+- Shifting the scheduling system to be course-focused.
 
 These challenges provided a deep understanding of software development complexities.
 
-Rework Highlights ♻️
-
+### Rework Highlights ♻️
 Some features were scaled back or removed:
-
-Icon customization for courses, teachers, and students (UI limitations).
-
-Easter eggs and personalized features.
-
-Simplified scheduling system.
-
-Streamlined course details and exam types.
+- Icon customization for courses, teachers, and students (UI limitations).
+- Easter eggs and personalized features.
+- Simplified scheduling system.
+- Streamlined course details and exam types.
 
 Features like multi-year group management and manual data saving/loading were omitted due to complexity.
 
-Lessons Learned 📚
-
+## Lessons Learned 📚
 Key takeaways:
+- **Lesson 1:** Careful planning reduces rework. 📝
+- **Lesson 2:** Concise, high-quality code is better than large, buggy code. 💎
+- **Lesson 3:** Avoid unnecessary pointer complexity. 🚫🔗
+- **Lesson 4:** More planning time saves development and debugging time. ⏰
 
-Lesson 1: Careful planning reduces rework. 📝
-
-Lesson 2: Concise, high-quality code is better than large, buggy code. 💎
-
-Lesson 3: Avoid unnecessary pointer complexity. 🚫🔗
-
-Lesson 4: More planning time saves development and debugging time. ⏰
-
-Conclusion 🎉
-
-The School-Management-System was a valuable design and problem-solving exercise. It involved challenges and reworks, but the experience gained was substantial. As a prototype, it served its purpose as a testing ground, laying the foundation for future projects.
+## Conclusion 🎉
+The **School-Management-System** was a valuable design and problem-solving exercise.  It involved challenges and reworks, but the experience gained was substantial. As a prototype, it served its purpose as a testing ground, laying the foundation for future projects.
 
 Feel free to explore the code and reach out with questions or suggestions!
 
-Screenshots 🖼️
-Login Window
+## Screenshots 🖼️
 
-![alt text](Screenshots/qt1.png)
+### Login Window
+![Screenshot 1](Screenshots/qt1.png)
+*Use admin|admin, or a Name|Password from the database*
 
-Use admin|admin, or a Name|Password from the database
+### Home Page
+![Screenshot 2](Screenshots/qt2.png)
+*Home Page with the Main Logo and homework*
 
-Home Page
+### Menu Illustation
+![Screenshot 3](Screenshots/qt3.png)
+*Example Menu (Teachers), all features implemented*
 
-![alt text](Screenshots/qt2.png)
+### Adding a new member/Element!
+![Screenshot 4](Screenshots/qt4.png)
+*Depends on member type: Teacher/Student/Course/Exam*
 
-Home Page with the Main Logo and homework
+### User Credentials
+![Screenshot 5](Screenshots/qt5.png)
+*Simple UI showcasing user information*
 
-Menu Illustation
+### About Context window
+![Screenshot 6](Screenshots/qt6.png)
 
-![alt text](Screenshots/qt3.png)
+*Simple about window*
 
-Example Menu (Teachers), all features implemented
-
-Adding a new member/Element!
-
-![alt text](Screenshots/qt4.png)
-
-Depends on member type: Teacher/Student/Course/Exam
-
-User Credentials
-
-![alt text](Screenshots/qt5.png)
-
-Simple UI showcasing user information
-
-About Context window
-
-![alt text](Screenshots/qt6.png)
-
-Simple about window
-
-Running the Application on Qt
-
-![alt text](Screenshots/howto.png)
-
-Set the project build location after downloading the zip file
+### Running the Application on Qt
+![Screenshot 7](Screenshots/howto.png)
+*Set the project build location after downloading the zip file*
